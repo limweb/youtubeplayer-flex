@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Graphic xmlns:fc="http://ns.adobe.com/flashcatalyst/2009" xmlns:d="http://ns.adobe.com/fxg/2008/dt" xmlns="http://ns.adobe.com/fxg/2008" version="2.0">
+	<BitmapImage source="@Embed('../images/videoplayer02/Shape 16_s Drop Shadow.png')" y="1" d:userLabel="Shape 16's Drop Shadow"/>
+	<BitmapImage source="@Embed('../images/videoplayer02/Shape 16.png')" d:userLabel="Shape 16"/>
+	<BitmapImage source="@Embed('../images/videoplayer02/Shape 16 copy_s Drop Shadow.png')" x="11" y="1" d:userLabel="Shape 16 copy's Drop Shadow"/>
+	<BitmapImage source="@Embed('../images/videoplayer02/Shape 16 copy.png')" x="11" d:userLabel="Shape 16 copy"/>
+	<BitmapImage source="@Embed('../images/videoplayer02/Shape 16 copy 2_s Drop Shadow.png')" y="10" d:userLabel="Shape 16 copy 2's Drop Shadow"/>
+	<BitmapImage source="@Embed('../images/videoplayer02/Shape 16 copy 2.png')" y="9" d:userLabel="Shape 16 copy 2"/>
+	<BitmapImage source="@Embed('../images/videoplayer02/Shape 16 copy 3_s Drop Shadow.png')" x="11" y="10" d:userLabel="Shape 16 copy 3's Drop Shadow"/>
+	<BitmapImage source="@Embed('../images/videoplayer02/Shape 16 copy 3.png')" x="11" y="9" d:userLabel="Shape 16 copy 3"/>
+</Graphic>

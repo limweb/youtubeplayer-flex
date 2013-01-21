@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:d="http://ns.adobe.com/fxg/2008/dt"
+		width="71" height="16">
+	<fx:Metadata>[HostComponent("spark.components.HSlider")]</fx:Metadata>
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="disabled"/>
+	</s:states>
+	<s:Button id="track" x="1" y="4" skinClass="components.volControlTrackSkin"/>
+	<s:BitmapImage source="@Embed('/assets/images/videoplayer02/Shape 15.png')" smooth="true" width="{thumb.x}" x="0" y="4"/>
+	<s:Button id="thumb" x="0" y="0" skinClass="components.volControlThumbSkin2"/>
+</s:Skin>

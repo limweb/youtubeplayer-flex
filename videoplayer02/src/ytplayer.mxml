@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:youtube="de.derhess.video.youtube.*"
+		 width="640" height="359">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			[Bindable] public var totalTime:Number = 350;
+			[Bindable] public var defaultTime:Number = 10;
+			[Bindable] public var volNum:Number = 30;
+			[Bindable] public var loadbarwidth:Number = 0;
+			
+			protected function volctrl_changeHandler(event:Event):void
+			{
+				// TODO Auto-generated method stub
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<s:BitmapImage x="0" y="0" smooth="true"
+				   source="@Embed('/assets/images/2948525373_c9a207e0c1.png')"/>
+	<s:BitmapImage left="5" top="5" width="266" height="63" smooth="true"
+				   source="@Embed('/assets/images/logo2.png')">
+		<s:filters>
+			<s:DropShadowFilter alpha="0.5" angle="45.0" blurX="4.0" blurY="4.0" color="#000000"
+								distance="4.0" hideObject="false" inner="false" knockout="false"
+								quality="2" strength="1"/>
+		</s:filters>
+	</s:BitmapImage>
+	
+	<youtube:FlexYouTube x="0" y="0" width="641" height="359" visible="false"/>
+	<s:Group bottom="10" horizontalCenter="0">
+		<s:BitmapImage source="@Embed('/assets/images/videoplayer02/shape.png')" smooth="true" x="0" y="0" alpha="0.6"/>
+		<s:RichText whiteSpaceCollapse="preserve" fontFamily="Arial" color="#ffffff" fontSize="11" lineHeight="227.25%" x="395" y="14">
+			<s:content><s:p><s:span>04:25</s:span></s:p></s:content>
+		</s:RichText>
+		<s:HSlider x="44" y="8" id="vdoCtrl" skinClass="components.vdoColtrolBar" showDataTip="true" maximum="{totalTime}" minimum="0"
+				   toolTip="{vdoCtrl.value}"
+				   />
+		<s:Button x="543.95" y="9" buttonMode="true" skinClass="components.btnFull"/>
+		<s:BitmapImage source="@Embed('/assets/images/videoplayer02/Shape 11.png')" smooth="true"  x="433" y="9"/>
+		<s:BitmapImage source="@Embed('/assets/images/videoplayer02/Shape 14_s Drop Shadow.png')" smooth="true"  x="462" y="14"/>
+		<s:HSlider id="volctrl" x="461.95" y="10" skinClass="components.volControl" maximum="100" minimum="0" value="{volNum}"
+				   change="volctrl_changeHandler(event)" showDataTip="true" toolTip="{volctrl.value}" />
+		<s:ToggleButton x="7.95" y="3" buttonMode="true" skinClass="components.btnPlayPause"/>
+	</s:Group>
+
+</s:Group>

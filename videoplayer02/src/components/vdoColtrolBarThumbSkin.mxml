@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:d="http://ns.adobe.com/fxg/2008/dt"
+		width="19" height="19">
+	<fx:Metadata>[HostComponent("spark.components.Button")]</fx:Metadata>
+	<s:states>
+		<s:State name="up"/>
+		<s:State name="over"/>
+		<s:State name="down"/>
+		<s:State name="disabled"/>
+	</s:states>
+	<s:Group x="0" y="0">
+		<s:BitmapImage source="@Embed('/assets/images/videoplayer02/Shape 8_s Outer Stroke.png')" smooth="true" d:userLabel="Shape 8's Outer Stroke" x="0" y="0"/>
+		<s:BitmapImage d:userLabel="Shape 8" x="1" y="1" smooth="true"
+					   source="@Embed('/assets/images/videoplayer02/Shape 8.png')">
+			<s:mask>
+				<s:Group x="0" y="0">
+					<s:Path winding="evenOdd" data="M 8.45 0 C 13.15 0 16.95 3.8 16.95 8.45 C 16.95 13.15 13.15 16.95 8.45 16.95 C 3.8 16.95 0 13.15 0 8.45 C 0 3.8 3.8 0 8.45 0">
+						<s:fill>
+							<s:SolidColor color="#ff0000"/>
+						</s:fill>
+					</s:Path>
+				</s:Group>
+			</s:mask>
+		</s:BitmapImage>
+		<s:BitmapImage source="@Embed('/assets/images/videoplayer02/Shape 9.png')" smooth="true" d:userLabel="Shape 9" x="4" y="4">
+			<s:mask>
+				<s:Group x="0" y="0">
+					<s:Path winding="evenOdd" data="M 5.45 0 C 8.5 0 10.95 2.45 10.95 5.45 C 10.95 8.5 8.5 10.95 5.45 10.95 C 2.45 10.95 0 8.5 0 5.45 C 0 2.45 2.45 0 5.45 0">
+						<s:fill>
+							<s:SolidColor color="#ff0000"/>
+						</s:fill>
+					</s:Path>
+				</s:Group>
+			</s:mask>
+		</s:BitmapImage>
+	</s:Group>
+</s:Skin>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:d="http://ns.adobe.com/fxg/2008/dt"
+		width="28" height="28">
+	<fx:Metadata>[HostComponent("spark.components.ToggleButton")]</fx:Metadata>
+	<s:states>
+		<s:State name="up"/>
+		<s:State name="over"/>
+		<s:State name="down"/>
+		<s:State name="disabled"/>
+		<s:State name="upAndSelected"/>
+		<s:State name="overAndSelected"/>
+		<s:State name="downAndSelected"/>
+		<s:State name="disabledAndSelected"/>
+	</s:states>
+	<s:Group d:userLabel="playpause" x="0" y="0">
+		<s:BitmapImage d:userLabel="Shape 5" x="0" y="0" smooth="true"
+					   source="@Embed('/assets/images/videoplayer02/Shape 5.png')">
+			<s:mask>
+				<s:Group x="0" y="0">
+					<s:Path winding="evenOdd" data="M 13.95 0 C 21.7 0 27.95 6.25 27.95 13.95 C 27.95 21.7 21.7 27.95 13.95 27.95 C 6.25 27.95 0 21.7 0 13.95 C 0 6.25 6.25 0 13.95 0">
+						<s:fill>
+							<s:SolidColor color="#ff0000"/>
+						</s:fill>
+					</s:Path>
+				</s:Group>
+			</s:mask>
+		</s:BitmapImage>
+		<s:BitmapImage d:userLabel="Shape 6" x="3" y="3" smooth="true"
+					   source="@Embed('/assets/images/videoplayer02/Shape 6.png')"
+					   visible.disabled="false"
+					   visible.disabledAndSelected="false">
+			<s:mask>
+				<s:Group x="0" y="0">
+					<s:Path winding="evenOdd" data="M 10.95 0 C 17.05 0 21.95 4.9 21.95 10.95 C 21.95 17.05 17.05 21.95 10.95 21.95 C 4.9 21.95 0 17.05 0 10.95 C 0 4.9 4.9 0 10.95 0">
+						<s:fill>
+							<s:SolidColor color="#ff0000"/>
+						</s:fill>
+					</s:Path>
+				</s:Group>
+			</s:mask>
+		</s:BitmapImage>
+		<s:BitmapImage d:userLabel="Shape 19's Drop Shadow" x="9" y="8" blendMode="multiply"
+					   smooth="true"
+					   source="@Embed('/assets/images/videoplayer02/Shape 19_s Drop Shadow.png')"
+					   visible.disabled="false"
+					   visible.down="false"
+					   visible.over="false"
+					   visible.up="false"/>
+		<s:BitmapImage d:userLabel="Shape 19" x="9" y="7" smooth="true"
+					   source="@Embed('/assets/images/videoplayer02/Shape 19.png')"
+					   visible.disabled="false"
+					   visible.down="false"
+					   visible.over="false"
+					   visible.up="false"/>
+		<s:BitmapImage d:userLabel="Shape 19 copy's Drop Shadow" x="15" y="8" blendMode="multiply"
+					   smooth="true"
+					   source="@Embed('/assets/images/videoplayer02/Shape 19 copy_s Drop Shadow.png')"
+					   visible.disabled="false"
+					   visible.down="false"
+					   visible.over="false"
+					   visible.up="false"/>
+		<s:BitmapImage d:userLabel="Shape 19 copy" x="15" y="7" smooth="true"
+					   source="@Embed('/assets/images/videoplayer02/Shape 19 copy.png')"
+					   visible.disabled="false"
+					   visible.down="false"
+					   visible.over="false"
+					   visible.up="false"/>
+		<s:BitmapImage d:userLabel="Shape 7" x="11" y="8" smooth="true"
+					   source="@Embed('/assets/images/videoplayer02/Shape 7.png')"
+					   visible.disabledAndSelected="false"
+					   visible.downAndSelected="false"
+					   visible.overAndSelected="false"
+					   visible.upAndSelected="false">
+			<s:mask>
+				<s:Group x="0" y="0">
+					<s:Path winding="evenOdd" data="M 8.95 5.95 L 0 0 L 0 11.95 L 8.95 5.95">
+						<s:fill>
+							<s:SolidColor color="#ff0000"/>
+						</s:fill>
+					</s:Path>
+				</s:Group>
+			</s:mask>
+		</s:BitmapImage>
+	</s:Group>
+</s:Skin>
