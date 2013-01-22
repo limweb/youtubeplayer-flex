@@ -7,7 +7,6 @@
 			   xmlns:ns1="*"
 			   width="100%" height="100%" backgroundColor="#000000" preloaderChromeColor="#000000"
 			   fc:previewHeight="359" fc:previewWidth="640">
-	<s:TextInput />
 	<ns1:ytplayer id="yt" horizontalCenter="0" verticalCenter="0">
 	</ns1:ytplayer>
 </s:Application>
