@@ -8,16 +8,120 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+			import de.derhess.video.youtube.YouTubeError;
+			import de.derhess.video.youtube.YouTubeEvent;
+			import de.derhess.video.youtube.YouTubePlayingState;
+			import de.derhess.video.youtube.YouTubeVideoQuality;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
 			[Bindable] public var totalTime:Number = 350;
 			[Bindable] public var defaultTime:Number = 10;
 			[Bindable] public var volNum:Number = 30;
 			[Bindable] public var loadbarwidth:Number = 0;
+			
+			[Bindable]
+			private var trackingActions:ArrayCollection = new ArrayCollection(new Array());
+			
+			
 			
 			protected function volctrl_changeHandler(event:Event):void
 			{
 				// TODO Auto-generated method stub
 				
 			}
+			
+			private function handlePlayerLoaded(event:YouTubeEvent):void
+			{
+				trackingActions.addItem({label:"YouTube Playinger API loaded"});
+				youTubePlayer.cueVideoById("jAHYJX4-glU",0,YouTubeVideoQuality.DEFAULT);
+			}
+			
+			private function handlePlayingState(event:YouTubeEvent):void
+			{
+				var message:String = "";
+				switch(event.playerState)
+				{
+					case YouTubePlayingState.BUFFERING:
+						message = "Video is Buffering";
+						break;
+					case YouTubePlayingState.UNSTARTED:
+						message = "Player is unstarted";
+						break;
+					case YouTubePlayingState.PLAYING:
+						message = "Video is playing";
+						break;
+					case YouTubePlayingState.PAUSE:
+						message = "Video pause is active";
+						break;
+					case YouTubePlayingState.VIDEO_CUED:
+						message = "Video is cued - Playing new Video?!"
+						youTubePlayer.visible = true;
+						break;
+					case YouTubePlayingState.VIDEO_ENDED:
+						message = "Video is finished";
+						youTubePlayer.visible = false;
+						break;
+					
+					default:
+						message = "uh what happens?? " + event.playerState;
+						break;
+				}
+				
+				trackingActions.addItem({label:"YouTube PlayingState: " + message});
+			}
+			
+			private function handleVideoQuality(event:YouTubeEvent):void
+			{
+				var message:String = "";
+				switch(event.playbackQuality)
+				{
+					case YouTubeVideoQuality.DEFAULT:
+						message = "default - YouTube choose";
+						break;
+					case YouTubeVideoQuality.SMALL:
+						message = "SMALL - less than 640px by 360px";
+						break;
+					case YouTubeVideoQuality.MEDIUM:
+						message = "MEDIUM - 640px by 360px";
+						break;
+					case YouTubeVideoQuality.LARGE:
+						message = "LARGE - 854px by 480px";
+						break;
+					case YouTubeVideoQuality.HD720:
+						message = "HD - 1280px by 720px"
+						break;
+					
+					default:
+						message = "uh what happens?? " + event.playbackQuality;
+						break;
+				}
+				trackingActions.addItem({label:"Video Quality changed: " + message});
+			}
+			
+			private function handleYouTubeError(event:YouTubeEvent):void
+			{
+				var message:String = "";
+				switch(event.errorCode)
+				{
+					case YouTubeError.VIDEO_NOT_FOUND:
+						message = "Video not found: " + event.errorCode;
+						break;
+					case YouTubeError.VIDEO_NOT_ALLOWED:
+						message = "Video not allowed: " + event.errorCode;
+						break;
+					case YouTubeError.EMBEDDING_NOT_ALLOWED:
+						message = "Embedding not allowed: " + event.errorCode;
+						break;
+					
+					default:
+						message = "undefined Error:" + event.errorCode;
+						break;
+				}
+				Alert.show(message,"YouTube Error",Alert.OK);
+				trackingActions.addItem({label:"Video Error: " + message});
+			}
+			
 			
 		]]>
 	</fx:Script>
@@ -32,7 +136,12 @@
 		</s:filters>
 	</s:BitmapImage>
 	
-	<youtube:FlexYouTube x="0" y="0" width="641" height="359" visible="false"/>
+	<youtube:FlexYouTube x="0" y="0" width="641" height="359" visible="false" id="youTubePlayer"
+						 youtubePlayerLoaded="{handlePlayerLoaded(event);}"
+						 youtubeStatus="{handlePlayingState(event);}"
+						 youtubeVideoQuality="{handleVideoQuality(event);}"
+						 youtubeError="{handleYouTubeError(event);}"
+						 />
 	<s:Group bottom="10" horizontalCenter="0">
 		<s:BitmapImage source="@Embed('/assets/images/videoplayer02/shape.png')" smooth="true" x="0" y="0" alpha="0.6"/>
 		<s:RichText whiteSpaceCollapse="preserve" fontFamily="Arial" color="#ffffff" fontSize="11" lineHeight="227.25%" x="395" y="14">
