@@ -23,7 +23,7 @@
 			private function handlePlayerLoaded(event:YouTubeEvent):void
 	        {
 	        	trackingActions.addItem({label:"YouTube Playinger API loaded"});
-	        	youTubePlayer.cueVideoById("jAHYJX4-glU",0,YouTubeVideoQuality.DEFAULT);
+	        	youTubePlayer.cueVideoById("L3Ez9PHXJic",0,YouTubeVideoQuality.DEFAULT);
 	        }
 	        
 	        private function handlePlayingState(event:YouTubeEvent):void
@@ -39,6 +39,7 @@
 				        break;
 				    case YouTubePlayingState.PLAYING:
 				        message = "Video is playing";
+						
 				        break;
 				    case YouTubePlayingState.PAUSE:
 				        message = "Video pause is active";
@@ -174,7 +175,7 @@
 			</mx:HBox>
 				
 			<mx:HBox>
-					<mx:ProgressBar id="progresPlayingVideo" label="playbar" mode="manual" labelPlacement="center" />
+				<mx:ProgressBar id="progresPlayingVideo" label="playbar" mode="manual" labelPlacement="center" />
 					<mx:ProgressBar id="progressLoadVideo" label="loading bar" mode="manual" labelPlacement="center" />
 					<mx:HSlider id="sliderVolume" minimum="0" maximum="100" value="100" liveDragging="true" />
 			</mx:HBox>	
@@ -187,7 +188,7 @@
 		
 		<mx:Form>
 			<mx:FormItem label="Video ClipID">
-				<mx:TextInput id="inputClipID" text="jAHYJX4-glU" />
+				<mx:TextInput id="inputClipID" text="L3Ez9PHXJic" />
 				<mx:Button label="changeVideo" click="{youTubePlayer.cueVideoById(inputClipID.text,0,YouTubeVideoQuality.DEFAULT);}" />
 			</mx:FormItem>
 			

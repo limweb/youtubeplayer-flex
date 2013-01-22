@@ -5,8 +5,90 @@
 			   xmlns:fc="http://ns.adobe.com/flashcatalyst/2009"
 			   xmlns:graphics="assets.graphics.*"
 			   xmlns:ns1="*"
+			   initialize="application1_initializeHandler(event)"
 			   width="100%" height="100%" backgroundColor="#000000" preloaderChromeColor="#000000"
-			   fc:previewHeight="359" fc:previewWidth="640">
+			   fc:previewHeight="359" fc:previewWidth="640"
+			   creationComplete="init()" >
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.utils.ObjectUtil;
+			
+			import org.osflash.thunderbolt.Logger;
+			private var timer:Timer;
+			private var dispState:String;
+			[Bindable] public var isFull:Boolean = false;	
+			
+			protected function init():void
+			{
+				dispState = systemManager.stage.displayState;
+				systemManager.stage.addEventListener(FullScreenEvent.FULL_SCREEN,handleFullScreenChange);
+			}
+			
+			protected function handleFullScreenChange(e:FullScreenEvent):void
+			{
+				trace("fullscreenEvent : "+e.fullScreen);
+				if(e.fullScreen){
+					yt.percentHeight = 100;
+					yt.percentWidth = 100;
+					yt.youTubePlayer.percentHeight = 100;
+					yt.youTubePlayer.percentWidth  = 100;
+					dispState = StageDisplayState.FULL_SCREEN;
+					isFull = true;
+					timeerStar();
+				} else {
+					yt.width = 641;
+					yt.height = 359;
+					yt.youTubePlayer.width = 641;
+					yt.youTubePlayer.height = 359;
+					dispState = StageDisplayState.NORMAL;
+					isFull = false;
+				}
+			}
+			
+			public function toggleFullScreen():void {
+				if (!isFull) {
+					dispState = StageDisplayState.FULL_SCREEN;
+				} else {
+					dispState = StageDisplayState.NORMAL;
+				}
+				isFull = !isFull;
+				try {
+					stage.displayState = dispState;
+					
+				} catch (any:*) {
+				}
+			}
+			
+			
+			protected function application1_initializeHandler(event:FlexEvent):void
+			{
+				// First of all show an information about ThunderBolt AS3
+				Logger.about();
+				// using ThunderBolt AS3 console or not
+				Logger.console = true;
+			}
+			
+			public function timeerStar():void {
+				timer = new Timer(3000);
+				timer.addEventListener(TimerEvent.TIMER, timer_timer);
+				timer.start();
+			}
+			
+			private function timer_timer(evt:TimerEvent):void {
+				yt.ctrlGroup.visible = false;
+				timer.stop();
+				//				var tmr:Timer = evt.currentTarget as Timer;
+				//				var obj:Object = new Object();
+				//				obj.currentCount = tmr.currentCount;
+				//				obj.delay = tmr.delay;
+				//				obj.repeatCount = tmr.repeatCount;
+				//				obj.running = tmr.running;
+				//				arrColl.addItemAt(obj, 0);
+			}
+			
+		]]>
+	</fx:Script>
 	<ns1:ytplayer id="yt" horizontalCenter="0" verticalCenter="0">
 	</ns1:ytplayer>
 </s:Application>
