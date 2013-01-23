@@ -17,8 +17,9 @@
 			import org.osflash.thunderbolt.Logger;
 			private var timer:Timer;
 			private var dispState:String;
-			[Bindable] public var isFull:Boolean = false;	
 			
+			[Bindable] public var isFull:Boolean = false;	
+			[Bindable] public var timerStart:Boolean = false;
 			protected function init():void
 			{
 				dispState = systemManager.stage.displayState;
@@ -70,14 +71,20 @@
 			}
 			
 			public function timeerStar():void {
-				timer = new Timer(3000);
+				timer = new Timer(5000);
 				timer.addEventListener(TimerEvent.TIMER, timer_timer);
 				timer.start();
+				timerStart = true;
 			}
 			
 			private function timer_timer(evt:TimerEvent):void {
-				yt.ctrlGroup.visible = false;
+				if(isFull){
+					yt.ctrlGroup.visible = false;
+				} else {
+					yt.ctrlGroup.visible = true;
+				}
 				timer.stop();
+				timerStart = false;
 				//				var tmr:Timer = evt.currentTarget as Timer;
 				//				var obj:Object = new Object();
 				//				obj.currentCount = tmr.currentCount;
@@ -89,6 +96,6 @@
 			
 		]]>
 	</fx:Script>
-	<ns1:ytplayer id="yt" horizontalCenter="0" verticalCenter="0">
+	<ns1:ytplayer id="yt" horizontalCenter="0" verticalCenter="-2">
 	</ns1:ytplayer>
 </s:Application>

@@ -4,6 +4,7 @@
 		 xmlns:youtube="de.derhess.video.youtube.*"
 		 width="640" height="359" xmlns:mx="library://ns.adobe.com/flex/mx"
 		 creationComplete="init()"
+		 mouseMove="group1_mouseMoveHandler(event)"
 		 >
 	<s:states>
 		<s:State name="State1"/>
@@ -67,6 +68,7 @@
 					case YouTubePlayingState.VIDEO_ENDED:
 						message = "Video is finished";
 						youTubePlayer.visible = false;
+						vdoCtrl.visible = true;
 						break;
 					
 					default:
@@ -173,15 +175,27 @@
 			
 			protected function youTubePlayer_mouseMoveHandler(event:MouseEvent):void
 			{
-				ctrlGroup.visible = true;
-				FlexGlobals.topLevelApplication.timeerStar();
+				if(FlexGlobals.topLevelApplication.timerStart){
+					ctrlGroup.visible = true;
+				} else {
+					FlexGlobals.topLevelApplication.timeerStar();
+					ctrlGroup.visible = true;
+				}
 				
+			}
+			
+			protected function group1_mouseMoveHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				ctrlGroup.visible = true;
 			}
 			
 		]]>
 	</fx:Script>
-	<s:BitmapImage horizontalCenter="0" verticalCenter="0" smooth="true" id="imgScreen"
-				   source="@Embed('/assets/images/2948525373_c9a207e0c1.png')"/>
+	<s:BitmapImage id="imgScreen" horizontalCenter="0" smooth="true" 
+				   source="@Embed('/assets/images/2948525373_c9a207e0c1.png')" verticalCenter="0"
+				   horizontalCenter.State1="0" verticalCenter.State1="0"
+				   />
 	<s:BitmapImage width="266" height="63" smooth="true" source="@Embed('/assets/images/logo2.png')"
 				   x="{imgScreen.x+5}" y="{imgScreen.y+5}">
 		<s:filters>
