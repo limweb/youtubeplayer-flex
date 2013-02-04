@@ -39,7 +39,14 @@
 				youTubePlayer.cueVideoById("L3Ez9PHXJic",0,YouTubeVideoQuality.DEFAULT);
 			}
 			
-
+			public function pay(vdo:String = null ):void {
+				if(vdo != null ){
+					youTubePlayer.cueVideoById(vdo,0,YouTubeVideoQuality.DEFAULT);
+				}
+			}
+			
+			
+			
 			private function handlePlayingState(event:YouTubeEvent):void
 			{
 				var message:String = "";

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties analytics="false" mainApplicationPath="Main.mxml" projectUUID="df8a069e-8d98-41cf-888c-beffb7cce0bc" version="10">
+<actionScriptProperties analytics="false" mainApplicationPath="index.mxml" projectUUID="df8a069e-8d98-41cf-888c-beffb7cce0bc" version="10">
   <compiler additionalCompilerArguments="-locale en_US" autoRSLOrdering="true" copyDependentFiles="true" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="1">
@@ -30,6 +30,7 @@
         </excludedEntries>
       </libraryPathEntry>
       <libraryPathEntry kind="3" linkType="1" path="libs/ThunderBoltAS3_Flex_v2.3.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/webtvlib/bin/webtvlib.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
@@ -37,6 +38,7 @@
   <applications>
     <application path="flex_youTube.mxml"/>
     <application path="Main.mxml"/>
+    <application path="index.mxml"/>
   </applications>
   <modules/>
   <buildCSSFiles/>

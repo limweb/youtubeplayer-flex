@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 xmlns:d="http://ns.adobe.com/fxg/2008/dt"
+		 minWidth="1280" minHeight="650"
+		 width="100%" height="100%" xmlns:components="components.*"
+		 creationComplete="init()"
+		 >
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.utils.StringUtil;
+			
+			import spark.events.IndexChangeEvent;
+			
+			private static const YOUTUBE_EMBED_URL:String = "http://www.youtube.com/v/{0}?version=3&autoplay={1}&fs={2}&rel={3}&enablejsapi=1";
+			
+			private static const YOUTUBE_EXTERNAL_URL:String = "http://www.youtube.com/watch?v=";
+			
+			private var videoIds:Array = ["L3Ez9PHXJic","DoQeC9wd97c", "dWOz8oQtFAo","WKNRvBfiUOg"];
+			
+			[Bindable]
+			private var videoUrl:String;
+			
+			[Bindable]
+			private var youTubeUrl:String;
+			
+			[Bindable]
+			private var autoPlay:Boolean = true;
+			
+			[Bindable]
+			private var relatedContent:Boolean = true;
+			
+			private var currentIndex:int = 0;
+			
+			private function play(dx:int):void {
+				swfLoader.unloadAndStop();
+				currentIndex = (currentIndex + dx) % videoIds.length;
+				var videoId:String = videoIds[currentIndex];
+				videoUrl = StringUtil.substitute(YOUTUBE_EMBED_URL, videoId, b2i(autoPlay), b2i(relatedContent));
+				youTubeUrl = YOUTUBE_EXTERNAL_URL + videoId;
+			}
+			
+			private function b2i(b:Boolean):int {
+				return (b ? 1 : 0);
+			}
+			
+			protected function button_clickHandler():void
+			{
+				navigateToURL( new URLRequest( encodeURI("http://www.facebook.com/buzzabatv")), "_blank");
+			}
+			
+			protected function button_clickHandler_1():void
+			{
+				navigateToURL( new URLRequest( encodeURI("https://play.google.com/store")), "_blank");
+			}
+			
+			
+			protected function button_clickHandler_2():void
+			{
+				navigateToURL( new URLRequest( encodeURI("http://store.apple.com/th")), "_blank");
+			}
+			
+			protected function btnSawasdee_clickHandler(event:MouseEvent):void
+			{
+				vsTopLogo.selectedChild = vsSawasdee;
+				vdolist.visible = false;
+				she3.visible = false;
+				she1.visible = true;
+				play(0);
+			}
+			
+			protected function btnBuzzabaTv_clickHandler(event:MouseEvent):void
+			{
+				vsTopLogo.selectedChild = vsBuzzabatv;
+				vdolist.visible = false;
+				she3.visible = false;
+				she1.visible = true;
+				play(1);
+			}
+			
+			protected function btnCampuztv_clickHandler(event:MouseEvent):void
+			{
+			 	vsTopLogo.selectedChild = vsCampuztv;
+				vdolist.visible = false;
+				she3.visible = false;
+				she1.visible = true;
+				play(2);
+			}
+			
+			protected function btnPrettyTv_clickHandler(event:MouseEvent):void
+			{
+				vsTopLogo.selectedChild = vsPrettyTv;
+				vdolist.visible = false;
+				she3.visible = false;
+				she1.visible = true;
+				play(3);
+			}
+			
+			protected function btnLast_clickHandler(event:MouseEvent):void
+			{
+				she1.visible = false;
+				vdolist.visible = true;
+				she3.visible = true;
+				vdolist.setStyle("contentBackgroundColor","#909088");
+			}
+			
+			protected function btnFresh_clickHandler(event:MouseEvent):void
+			{
+				she1.visible = false;
+				vdolist.visible = true;
+				she3.visible = true;
+				vdolist.setStyle("contentBackgroundColor","yellow");
+				
+			}
+			
+			protected function init():void
+			{
+					she1.visible = true;
+					she3.visible = false;
+					vdolist.visible = false;
+					play(0);
+			}
+			
+			protected function vdolist_changeHandler(event:IndexChangeEvent):void
+			{
+				this.visible = false;
+				she1.visible = true;
+				she3.visible = false;
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<s:VGroup  left="10" top="5" gap="2" >
+			<mx:Text text="VISITERS" />
+			
+		<s:Group x="4" y="22">
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 70_s Drop Shadow.png')" smooth="true" d:userLabel="Layer 2 copy 70's Drop Shadow" x="0" y="0" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 70.png')" smooth="true" d:userLabel="Layer 2 copy 70" x="0" y="0"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/s_s Drop Shadow.png')" smooth="true" d:userLabel="s's Drop Shadow" x="5" y="4" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/s.png')" smooth="true" d:userLabel="s" x="5" y="4"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 3 copy 69.png')" smooth="true" d:userLabel="Layer 3 copy 69" x="0" y="12"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 106_s Drop Shadow.png')" smooth="true" d:userLabel="Layer 2 copy 106's Drop Shadow" x="0" y="0" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 106.png')" smooth="true" d:userLabel="Layer 2 copy 106" x="0" y="0"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/s copy_s Drop Shadow.png')" smooth="true" d:userLabel="s copy's Drop Shadow" x="5" y="4" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/s copy.png')" smooth="true" d:userLabel="s copy" x="5" y="4"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 3 copy 105.png')" smooth="true" d:userLabel="Layer 3 copy 105" x="0" y="12"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 50_s Drop Shadow.png')" smooth="true" d:userLabel="Layer 2 copy 50's Drop Shadow" x="54" y="0" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 50.png')" smooth="true" d:userLabel="Layer 2 copy 50" x="54" y="0"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 14_s Drop Shadow.png')" smooth="true" d:userLabel="Layer 2 copy 14's Drop Shadow" x="18" y="0" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 14.png')" smooth="true" d:userLabel="Layer 2 copy 14" x="18" y="0"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/1.png')" smooth="true" d:userLabel="1" x="23" y="3"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 3 copy 14.png')" smooth="true" d:userLabel="Layer 3 copy 14" x="18" y="12"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 49_s Drop Shadow.png')" smooth="true" d:userLabel="Layer 2 copy 49's Drop Shadow" x="36" y="0" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 49.png')" smooth="true" d:userLabel="Layer 2 copy 49" x="36" y="0"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/2_s Drop Shadow1.png')" smooth="true" d:userLabel="2's Drop Shadow" x="41" y="4" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/3.png')" smooth="true" d:userLabel="2" x="41" y="4"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/3_s Drop Shadow.png')" smooth="true" d:userLabel="3's Drop Shadow" x="58" y="3" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/4.png')" smooth="true" d:userLabel="3" x="58" y="3"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 3 copy 49.png')" smooth="true" d:userLabel="Layer 3 copy 49" x="36" y="12"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 3 copy 50.png')" smooth="true" d:userLabel="Layer 3 copy 50" x="54" y="12"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 51_s Drop Shadow.png')" smooth="true" d:userLabel="Layer 2 copy 51's Drop Shadow" x="107" y="0" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 51.png')" smooth="true" d:userLabel="Layer 2 copy 51" x="107" y="0"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 52_s Drop Shadow.png')" smooth="true" d:userLabel="Layer 2 copy 52's Drop Shadow" x="72" y="0" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 52.png')" smooth="true" d:userLabel="Layer 2 copy 52" x="72" y="0"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/5.png')" smooth="true" d:userLabel="4" x="76" y="3"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 3 copy 51.png')" smooth="true" d:userLabel="Layer 3 copy 51" x="72" y="12"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 53_s Drop Shadow.png')" smooth="true" d:userLabel="Layer 2 copy 53's Drop Shadow" x="89" y="0" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 53.png')" smooth="true" d:userLabel="Layer 2 copy 53" x="89" y="0"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/5_s Drop Shadow.png')" smooth="true" d:userLabel="5's Drop Shadow" x="94" y="4" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/6.png')" smooth="true" d:userLabel="5" x="94" y="4"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/6_s Drop Shadow.png')" smooth="true" d:userLabel="6's Drop Shadow" x="112" y="3" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/8.png')" smooth="true" d:userLabel="6" x="112" y="3"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 3 copy 52.png')" smooth="true" d:userLabel="Layer 3 copy 52" x="90" y="12"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 3 copy 53.png')" smooth="true" d:userLabel="Layer 3 copy 53" x="108" y="12"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 54_s Drop Shadow.png')" smooth="true" d:userLabel="Layer 2 copy 54's Drop Shadow" x="125" y="0" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 54.png')" smooth="true" d:userLabel="Layer 2 copy 54" x="125" y="0"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/7_s Drop Shadow.png')" smooth="true" d:userLabel="7's Drop Shadow" x="130" y="3" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/9.png')" smooth="true" d:userLabel="7" x="130" y="3"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 3 copy 54.png')" smooth="true" d:userLabel="Layer 3 copy 54" x="126" y="12"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 56_s Drop Shadow.png')" smooth="true" d:userLabel="Layer 2 copy 56's Drop Shadow" x="143" y="0" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 56.png')" smooth="true" d:userLabel="Layer 2 copy 56" x="143" y="0"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/10.png')" smooth="true" d:userLabel="8" x="147" y="3"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 3 copy 55.png')" smooth="true" d:userLabel="Layer 3 copy 55" x="143" y="12"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 85_s Drop Shadow.png')" smooth="true" d:userLabel="Layer 2 copy 85's Drop Shadow" x="54" y="0" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 85.png')" smooth="true" d:userLabel="Layer 2 copy 85" x="54" y="0"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 15_s Drop Shadow.png')" smooth="true" d:userLabel="Layer 2 copy 15's Drop Shadow" x="18" y="0" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 15.png')" smooth="true" d:userLabel="Layer 2 copy 15" x="18" y="0"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/1 copy_s Drop Shadow.png')" smooth="true" d:userLabel="1 copy's Drop Shadow" x="23" y="3" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/1 copy.png')" smooth="true" d:userLabel="1 copy" x="23" y="3"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 3 copy 15.png')" smooth="true" d:userLabel="Layer 3 copy 15" x="18" y="12"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 86_s Drop Shadow.png')" smooth="true" d:userLabel="Layer 2 copy 86's Drop Shadow" x="36" y="0" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 86.png')" smooth="true" d:userLabel="Layer 2 copy 86" x="36" y="0"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/2 copy_s Drop Shadow.png')" smooth="true" d:userLabel="2 copy's Drop Shadow" x="41" y="4" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/2 copy.png')" smooth="true" d:userLabel="2 copy" x="41" y="4"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/3 copy_s Drop Shadow.png')" smooth="true" d:userLabel="3 copy's Drop Shadow" x="58" y="3" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/3 copy.png')" smooth="true" d:userLabel="3 copy" x="58" y="3"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 3 copy 85.png')" smooth="true" d:userLabel="Layer 3 copy 85" x="36" y="12"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 3 copy 86.png')" smooth="true" d:userLabel="Layer 3 copy 86" x="54" y="12"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 87_s Drop Shadow.png')" smooth="true" d:userLabel="Layer 2 copy 87's Drop Shadow" x="107" y="0" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 87.png')" smooth="true" d:userLabel="Layer 2 copy 87" x="107" y="0"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 88_s Drop Shadow.png')" smooth="true" d:userLabel="Layer 2 copy 88's Drop Shadow" x="72" y="0" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 88.png')" smooth="true" d:userLabel="Layer 2 copy 88" x="72" y="0"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/4 copy_s Drop Shadow.png')" smooth="true" d:userLabel="4 copy's Drop Shadow" x="76" y="3" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/4 copy.png')" smooth="true" d:userLabel="4 copy" x="76" y="3"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 3 copy 87.png')" smooth="true" d:userLabel="Layer 3 copy 87" x="72" y="12"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 89_s Drop Shadow.png')" smooth="true" d:userLabel="Layer 2 copy 89's Drop Shadow" x="89" y="0" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 89.png')" smooth="true" d:userLabel="Layer 2 copy 89" x="89" y="0"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/5 copy_s Drop Shadow.png')" smooth="true" d:userLabel="5 copy's Drop Shadow" x="94" y="4" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/5 copy.png')" smooth="true" d:userLabel="5 copy" x="94" y="4"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/6 copy_s Drop Shadow.png')" smooth="true" d:userLabel="6 copy's Drop Shadow" x="112" y="3" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/6 copy.png')" smooth="true" d:userLabel="6 copy" x="112" y="3"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 3 copy 88.png')" smooth="true" d:userLabel="Layer 3 copy 88" x="90" y="12"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 3 copy 89.png')" smooth="true" d:userLabel="Layer 3 copy 89" x="108" y="12"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 90_s Drop Shadow.png')" smooth="true" d:userLabel="Layer 2 copy 90's Drop Shadow" x="125" y="0" blendMode="multiply"/>
+			<s:BitmapImage d:userLabel="Layer 2 copy 90" x="125" y="0" smooth="true"
+						   source="@Embed('/assets/images/webtv/Layer 2 copy 90.png')"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/7 copy_s Drop Shadow.png')" smooth="true" d:userLabel="7 copy's Drop Shadow" x="130" y="3" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/7 copy.png')" smooth="true" d:userLabel="7 copy" x="130" y="3"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 3 copy 90.png')" smooth="true" d:userLabel="Layer 3 copy 90" x="126" y="12"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 92_s Drop Shadow.png')" smooth="true" d:userLabel="Layer 2 copy 92's Drop Shadow" x="143" y="0" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 92.png')" smooth="true" d:userLabel="Layer 2 copy 92" x="143" y="0"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/8 copy_s Drop Shadow.png')" smooth="true" d:userLabel="8 copy's Drop Shadow" x="147" y="3" blendMode="multiply"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/8 copy.png')" smooth="true" d:userLabel="8 copy" x="147" y="3"/>
+			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 3 copy 91.png')" smooth="true" d:userLabel="Layer 3 copy 91" x="143" y="12"/>
+		</s:Group>
+		<s:HGroup width="100%" horizontalAlign="center">
+		<s:RadioButton  selected="true" skinClass="components.rdoThai"/>
+		<s:RadioButton  skinClass="components.rdoEnglish"/>
+		<s:RadioButton  skinClass="components.rdoChinese"/>
+		</s:HGroup>
+	</s:VGroup>
+	<s:HGroup width="{vdoplayer.width}" height="120" gap="0" horizontalAlign="center"
+			  horizontalCenter="0" verticalAlign="bottom" verticalCenter="-257">
+						<mx:ViewStack id="vsTopLogo" x="-302" width="634" height="100%">
+									<mx:HBox horizontalAlign="center" verticalAlign="top" id="vsSawasdee">
+									<s:HGroup>
+										<s:BitmapImage d:userLabel="SawasdeeTv" visible="true" smooth="true"
+													   source="@Embed('/assets/images/webtv/logo3.png')"/>
+									</s:HGroup>
+									</mx:HBox>
+									<mx:HBox horizontalAlign="center" verticalAlign="top" id="vsBuzzabatv">
+									<s:HGroup>
+										<s:BitmapImage d:userLabel="BuzzabaTv" visible="true" smooth="true"
+													   source="@Embed('/assets/images/webtv/buzzabaLOGO1.png')"/>
+									</s:HGroup>
+									</mx:HBox>
+									<mx:HBox horizontalAlign="center" verticalAlign="top" id="vsCampuztv">
+									<s:HGroup>
+											<s:BitmapImage d:userLabel="CampuzTv" visible="true"  smooth="true"
+														   source="@Embed('/assets/images/webtv/campuztv375.png')"/>
+									</s:HGroup>
+									</mx:HBox>
+									<mx:HBox horizontalAlign="center" verticalAlign="top" id="vsPrettyTv">
+									<s:HGroup>
+										<s:BitmapImage d:userLabel="PrettyTv" visible="true"  smooth="true"
+										   source="@Embed('/assets/images/webtv/prettyLOGO3.png')" />
+									</s:HGroup>
+									</mx:HBox>
+							</mx:ViewStack>
+						<s:HGroup d:userLabel="PlayListGroup" gap="0">
+							<s:Button click="btnLast_clickHandler(event)"
+									  skinClass="components.btnLast" id="btnLast"/>
+							<s:Button click="btnFresh_clickHandler(event)" id="btnFresh"
+									  skinClass="components.btnFresh"/>
+						</s:HGroup>
+	</s:HGroup>
+	<s:Group horizontalCenter="0" verticalCenter="0" id="vdoplayer">
+		<s:RectangularDropShadow x="0" y="9" width="100%" height="100%" alpha="0.7" angle="45"
+								 distance="5"/>
+		<s:Rect height="100%"
+				width="100%">
+			<s:stroke>
+				<s:SolidColorStroke color="#333333"
+									weight="1"/>
+			</s:stroke>
+		</s:Rect>
+	</s:Group>
+	<s:Button bottom="10" horizontalCenter="0" skinClass="components.btnSawasdeetvCopyRightLink"/>
+	<s:Button bottom="32" click="button_clickHandler()" horizontalCenter="103"
+			  skinClass="components.btnFacebook" buttonMode="true" />
+	<s:Button bottom="32" click="button_clickHandler_1()" horizontalCenter="32"
+			  skinClass="components.btnGooglePlay" buttonMode="true" />
+	<s:Button bottom="32" click="button_clickHandler_2()" horizontalCenter="-70"
+			  skinClass="components.btnAppstore" buttonMode="true" />
+	<s:BitmapImage d:userLabel="she2" left="8" bottom="7" width="158" height="463"
+				   smooth="true"
+				   source="@Embed('/assets/images/webtv/599411_438877132801500_659415999_n.png')"/>
+	<s:BitmapImage d:userLabel="she1" right="1" bottom="7" width="196" height="462"
+				   smooth="true" id="she1" visible="false"
+				   source="@Embed('/assets/images/webtv/582190_438362922852921_1472748321_n.png')"/>
+	<s:List id="vdolist" width="235" height="587" change="vdolist_changeHandler(event)"
+			contentBackgroundColor="yellow" horizontalCenter="458" verticalCenter="61"/>
+	<s:BitmapImage id="she3" d:userLabel="she1" visible="true" width="196" height="462"
+				   horizontalCenter="633" smooth="true"
+				   source="@Embed('/assets/images/webtv/582190_438362922852921_1472748321_n.png')"
+				   verticalCenter="123"/>
+	<s:HGroup bottom="67" horizontalCenter="0" verticalAlign="middle" buttonMode="true">
+		<s:Button id="btnSawasdee" click="btnSawasdee_clickHandler(event)"
+				  skinClass="components.btnSawasdeetvSMlogo"/>
+		<s:Button id="btnBuzzabaTv" click="btnBuzzabaTv_clickHandler(event)"
+				  skinClass="components.btnBuzzabaSMlogo"/>
+		<s:Button id="btnCampuztv" click="btnCampuztv_clickHandler(event)"
+				  skinClass="components.btnCampuztvSmLogo"/>
+		<s:Button id="btnPrettyTv" click="btnPrettyTv_clickHandler(event)"
+				  skinClass="components.btnPrettySMlogo"/>
+	</s:HGroup>
+	<s:ToggleButton x="1464" y="1121" label="Toggle Button"/>
+</s:Group>

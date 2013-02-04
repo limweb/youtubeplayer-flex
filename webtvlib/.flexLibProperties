@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+  <includeClasses>
+    <classEntry path="components.btnLast"/>
+    <classEntry path="components.rdoEnglish"/>
+    <classEntry path="components.btnCampuztvSmLogo"/>
+    <classEntry path="components.btnBuzzabaSMlogo"/>
+    <classEntry path="components.btnFacebook"/>
+    <classEntry path="components.btnSawasdeetvCopyRightLink"/>
+    <classEntry path="components.btnPrettySMlogo"/>
+    <classEntry path="components.btnSawasdeetvSMlogo"/>
+    <classEntry path="components.rdoChinese"/>
+    <classEntry path="components.btnFresh"/>
+    <classEntry path="components.btnAppstore"/>
+    <classEntry path="PrivateData"/>
+    <classEntry path="components.rdoThai"/>
+    <classEntry path="components.btnGooglePlay"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>

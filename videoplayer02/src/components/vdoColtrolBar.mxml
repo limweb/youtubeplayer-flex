@@ -26,7 +26,7 @@
 	<s:Button id="track" x="0" y="5" skinClass="components.vdoColtrolBarTrackSkin"
 			  width="313"/>
 		<s:Path id="loadbar" x="2" y="5"
-				width="{application.yt.loadbar}"
+				width="{application.vdoplayer.loadbar}"
 				data="M 4.95 0 L 188.95 0 C 191.75 0 193.95 2.2 193.95 4.95 C 193.95 7.75 191.75 9.95 188.95 9.95 L 4.95 9.95 C 2.2 9.95 0 7.75 0 4.95 C 0 2.2 2.2 0 4.95 0"
 				winding="evenOdd" >
 			<s:fill>
