@@ -2,16 +2,17 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
 		 xmlns:s="library://ns.adobe.com/flex/spark"
 		 xmlns:youtube="de.derhess.video.youtube.*"
-		 width="640" height="359" xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 width="640" height="359" 
 		 creationComplete="init()"
-		 mouseMove="group1_mouseMoveHandler(event)"
+		 mouseMove="group1_mouseMoveHandler(event)" xmlns:components="components.*"
 		 >
 	<s:states>
 		<s:State name="State1"/>
 		<s:State name="FULL"/>
 	</s:states>
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:NumberFormatter precision="0" id="numfrm0"/>
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
@@ -28,6 +29,7 @@
 			[Bindable] public var totalTime:Number = 350;
 			[Bindable] public var defaultTime:Number = 10;
 			[Bindable] public var volNum:Number = 30;
+					   private var vol:Number = 0;
 			[Bindable] public var loadbarwidth:Number = 0;
 			[Bindable] public var loadbar:Number = 0;
 			[Bindable] private var vdostop:Boolean = false;
@@ -41,6 +43,7 @@
 			
 			public function pay(vdo:String = null ):void {
 				if(vdo != null ){
+					Logger.debug('Play Vdo is:'+ vdo );
 					youTubePlayer.cueVideoById(vdo,0,YouTubeVideoQuality.DEFAULT);
 				}
 			}
@@ -63,6 +66,7 @@
 //						youTubePlayer.playVideo();
 						btnPlayStop.selected = true;
 						this.addEventListener(Event.ENTER_FRAME,handlePlayingTime);
+						this.addEventListener(MouseEvent.MOUSE_MOVE,youTubePlayer_mouseMoveHandler);
 						break;
 					case YouTubePlayingState.PAUSE:
 						message = "Video pause is active";
@@ -138,42 +142,49 @@
 			}
 			
 			
-			protected function playStop(event:MouseEvent):void
+			public function playStop(event:MouseEvent):void
 			{
 				youTubePlayer.visible = true;
 				if(btnPlayStop.selected){
 					youTubePlayer.playVideo();
+					Logger.debug('Play Video')
 					this.addEventListener(Event.ENTER_FRAME,handlePlayingTime);
 				} else {
 					youTubePlayer.pauseVideo();
+					Logger.debug('pause Video');
 					this.removeEventListener(Event.ENTER_FRAME,handlePlayingTime);
 				}
 			}
 			
 			private function handlePlayingTime(e:Event):void
 			{
-				txtTotalTime.text = youTubePlayer.getCurrentTime() + " / " + youTubePlayer.getDuration();
+//				Logger.debug('start HandlePlaying Time');
+				txtTotalTime.text = numfrm0.format(youTubePlayer.getCurrentTime()) + " / " + numfrm0.format( youTubePlayer.getDuration());
 				vdoCtrl.maximum = youTubePlayer.getDuration();
 				if(!vdostop){ vdoCtrl.value = youTubePlayer.getCurrentTime(); }
-				loadbar = youTubePlayer.getVideoBytesLoaded()/youTubePlayer.getVideoBytesTotal()*100 * 313/100;
+				loadbar = youTubePlayer.getVideoBytesLoaded()/youTubePlayer.getVideoBytesTotal()*100 * 2.41;
 				txtloader0.text = String(youTubePlayer.getVideoBytesLoaded()/youTubePlayer.getVideoBytesTotal()*100 * vdoCtrl.maximum /100);
 				txtloader1.text = String( youTubePlayer.getVideoBytesLoaded());
 				txtloader2.text = String(youTubePlayer.getVideoBytesTotal());
+//				trace(loadbar);
 			}
 			
 
 			protected function youTubePlayer_clickHandler(event:MouseEvent):void
 			{
 				if(youTubePlayer.playerState == YouTubePlayingState.PLAYING){
-					youTubePlayer.pauseVideo()();
+					Logger.debug('pause Video');
+					youTubePlayer.pauseVideo();
 				} else {
 					youTubePlayer.playVideo();
+					Logger.debug('Play Video');
 				}
 				
 			}
 			
 			protected function vdoCtrl_changeHandler(event:Event):void
 			{
+				Logger.debug('vdoCtrl change seekto');
 				vdostop = true;
 				youTubePlayer.seekTo(vdoCtrl.value);
 				vdostop = false;
@@ -182,19 +193,59 @@
 			
 			protected function youTubePlayer_mouseMoveHandler(event:MouseEvent):void
 			{
-				if(FlexGlobals.topLevelApplication.timerStart){
-					ctrlGroup.visible = true;
-				} else {
-					FlexGlobals.topLevelApplication.timeerStar();
-					ctrlGroup.visible = true;
-				}
-				
+//				Logger.debug('mouseMove timestart = '+ FlexGlobals.topLevelApplication.timerStart.toString());
+//				if(FlexGlobals.topLevelApplication.timerStart){
+//					ctrlGroup.visible = true;
+//				} else {
+//					FlexGlobals.topLevelApplication.timeerStar();
+//					ctrlGroup.visible = true;
+//				}
+//				Logger.debug('yt mouse move');
 			}
 			
 			protected function group1_mouseMoveHandler(event:MouseEvent):void
 			{
-				// TODO Auto-generated method stub
-				ctrlGroup.visible = true;
+				Logger.debug(' Group Mouse Move');
+				if(FlexGlobals.topLevelApplication.timerStart){
+					Logger.debug('tiemer start true');
+					ctrlGroup.visible = true;
+//					FlexGlobals.topLevelApplication.vh = true;
+				} else {
+					Logger.debug('timer start false');
+					ctrlGroup.visible = true;
+					FlexGlobals.topLevelApplication.timeerStar();
+//					FlexGlobals.topLevelApplication.vh = false;
+				}
+					ctrlGroup.visible = true;
+			}
+			
+			
+			protected function togVol_changeHandler(event:Event):void
+			{
+				if(togVol.selected ){
+					volNum = vol; 
+				} else {
+					vol = volNum;
+					volNum = 0;
+				}
+				
+			}
+			
+			protected function volctrl_changeHandler(event:Event):void
+			{
+				volNum = volctrl.value;
+				
+			}
+			
+			protected function togHD_clickHandler(event:MouseEvent):void
+			{
+//				playbackQuality
+				if(togHD.selected){
+					youTubePlayer.playbackQuality  = YouTubeVideoQuality.HD720;
+				} else {
+					youTubePlayer.playbackQuality  = YouTubeVideoQuality.DEFAULT;
+				}
+				
 			}
 			
 		]]>
@@ -219,21 +270,24 @@
 						 youtubeError="{handleYouTubeError(event);}"
 						 volume="{volctrl.value}"
 						 click="youTubePlayer_clickHandler(event)"
-						 mouseMove="youTubePlayer_mouseMoveHandler(event)"
 						 />
 	<s:Group bottom="10" horizontalCenter="0" id="ctrlGroup">
 		<s:BitmapImage source="@Embed('/assets/images/videoplayer02/shape.png')" smooth="true" x="0" y="0" alpha="0.6"/>
-		<mx:Text id="txtTotalTime" x="357" y="10" color="#ffffff" fontFamily="Arial" fontSize="11"
-				 text="0.00"/>
-		<s:HSlider id="vdoCtrl" x="44" y="8" width="313" maximum="{totalTime}" minimum="0"
+		<mx:Text id="txtTotalTime" x="297" y="10" color="#ffffff" fontFamily="Arial" fontSize="11"
+				 text="0.00"
+				 x.State1="297" y.State1="8"/>
+		<s:HSlider id="vdoCtrl" x="44" y="8" width="248" maximum="{totalTime}" minimum="0" 
 				   showDataTip="true" skinClass="components.vdoColtrolBar" toolTip="{vdoCtrl.value}"
 				   change="vdoCtrl_changeHandler(event)"/>
 		<s:Button x="543.95" y="9" buttonMode="true" click="FlexGlobals.topLevelApplication.toggleFullScreen()"
-				  skinClass="components.btnFull"/>
-		<s:BitmapImage source="@Embed('/assets/images/videoplayer02/Shape 11.png')" smooth="true"  x="433" y="9"/>
+				  skinClass="components.btnFull1" />
+<!--		<s:BitmapImage source="@Embed('/assets/images/videoplayer02/Shape 11.png')" smooth="true"  x="433" y="9"/>-->
+		<s:ToggleButton selected="true" skinClass="components.togVolume"  x="435" y="10" id="togVol" change="togVol_changeHandler(event)" />
+		<s:ToggleButton id="togHD"  skinClass="components.togHD" x="398" y="12" click="togHD_clickHandler(event)"/>
 		<s:BitmapImage source="@Embed('/assets/images/videoplayer02/Shape 14_s Drop Shadow.png')" smooth="true"  x="462" y="14"/>
-		<s:HSlider id="volctrl" x="461.95" y="10" skinClass="components.volControl" maximum="100" minimum="0" value="{volNum}"
-				    showDataTip="true" toolTip="{volctrl.value}" />
+		<s:HSlider id="volctrl" x="461.95" y="10" maximum="100" minimum="0" showDataTip="true"
+				   skinClass="components.volControl" toolTip="{volctrl.value}" value="{volNum}"
+				   change.State1="volctrl_changeHandler(event)"/>
 		<s:ToggleButton x="7.95" y="3" buttonMode="true" 
 						click="playStop(event)" id="btnPlayStop"
 						skinClass="components.btnPlayPause"/>

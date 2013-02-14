@@ -9,6 +9,11 @@
 		<s:State name="disabled"/>
 	</s:states>
 	<s:Button id="track" x="1" y="4" skinClass="components.volControlTrackSkin"/>
-	<s:BitmapImage source="@Embed('/assets/images/videoplayer02/Shape 15.png')" smooth="true" width="{thumb.x}" x="0" y="4"/>
+	<!--<s:BitmapImage source="@Embed('/assets/images/videoplayer02/Shape 15.png')" smooth="true" width="{thumb.x}" x="0" y="4"/>-->
+	<s:Rect width="{thumb.x}" x="0" y="4" height="8">
+		<s:fill>
+			<s:SolidColor color="0xff0000" />
+		</s:fill>
+	</s:Rect>
 	<s:Button id="thumb" x="0" y="0" skinClass="components.volControlThumbSkin2"/>
 </s:Skin>

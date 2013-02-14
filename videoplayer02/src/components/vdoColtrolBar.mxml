@@ -2,7 +2,7 @@
 <s:Skin xmlns:s="library://ns.adobe.com/flex/spark"
 		xmlns:fx="http://ns.adobe.com/mxml/2009"
 		xmlns:d="http://ns.adobe.com/fxg/2008/dt"
-		width="313" height="19">
+		width="241" height="19">
 	<fx:Metadata>[HostComponent("spark.components.HSlider")]</fx:Metadata>
 	
 	<fx:Script>
@@ -24,23 +24,20 @@
 		<s:State name="disabled"/>
 	</s:states>
 	<s:Button id="track" x="0" y="5" skinClass="components.vdoColtrolBarTrackSkin"
-			  width="313"/>
-		<s:Path id="loadbar" x="2" y="5"
-				width="{application.vdoplayer.loadbar}"
-				data="M 4.95 0 L 188.95 0 C 191.75 0 193.95 2.2 193.95 4.95 C 193.95 7.75 191.75 9.95 188.95 9.95 L 4.95 9.95 C 2.2 9.95 0 7.75 0 4.95 C 0 2.2 2.2 0 4.95 0"
-				winding="evenOdd" >
+			  width="241"/>
+		<s:Rect id="loadbar" x="0" y="5" height="9"
+			width="{application.vdoplayer.loadbar}" >
 			<s:fill>
-				<s:SolidColor color="#bbbbbb"/>
+				<s:SolidColor color="#384ef3"/>
 			</s:fill>
-		</s:Path>
-		<s:Path x="2" y="5" width="{thumb.x+5}" height="9.95"
-				data="M 4.95 0 L 188.95 0 C 191.75 0 193.95 2.2 193.95 4.95 C 193.95 7.75 191.75 9.95 188.95 9.95 L 4.95 9.95 C 2.2 9.95 0 7.75 0 4.95 C 0 2.2 2.2 0 4.95 0"
-				winding="evenOdd" >
+		</s:Rect>
+		<s:Rect x="0" y="5" width="{thumb.x+3}" height="9.95" >
 			<s:fill>
 				<s:SolidColor color="#ff0000"/>
 			</s:fill>
-		</s:Path>
-	<s:Button id="thumb" x="-2" y="0" skinClass="components.vdoColtrolBarThumbSkin"
-			  />
+		</s:Rect>
+	
+	
+	<s:Button id="thumb" x="-2" y="0" skinClass="components.vdoColtrolBarThumbSkin"  />
 	<fx:Private></fx:Private>
 </s:Skin>

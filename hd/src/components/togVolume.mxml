@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:d="http://ns.adobe.com/fxg/2008/dt"
+		width="23" height="18">
+	<fx:Metadata>[HostComponent("spark.components.ToggleButton")]</fx:Metadata>
+	<s:states>
+		<s:State name="up"/>
+		<s:State name="over"/>
+		<s:State name="down"/>
+		<s:State name="disabled"/>
+		<s:State name="upAndSelected"/>
+		<s:State name="overAndSelected"/>
+		<s:State name="downAndSelected"/>
+		<s:State name="disabledAndSelected"/>
+	</s:states>
+	<s:BitmapImage source="@Embed('/assets/images/Youtube-player/Image_17.png')" x="0" y="0" d:userLabel="Speaker" smooth="true"/>
+	<s:BitmapImage d:userLabel="Speaker" x="11" y="0" smooth="true"
+				   source="@Embed('/assets/images/Youtube-player/Image_19.png')"
+				   visible.disabled="false"
+				   visible.disabledAndSelected="false"
+				   visible.down="false"
+				   visible.over="false"
+				   visible.up="false"/>
+	<s:Path x="11.5" y="3.5" alpha="1" blendMode="normal"
+			data="M 0.5 2.5 L 2.5 5.5 L 0.5 8.5 L 2.5 10.5 L 5.5 8.5 L 8.5 10.5 L 10.5 8.5 L 8.5 5.5 L 10.5 2.5 L 8.5 0.5 L 5.5 2.5 L 2.5 0.5 L 0.5 2.5 Z"
+			winding="evenOdd"
+			visible.downAndSelected="false"
+			visible.overAndSelected="false"
+			visible.upAndSelected="false">
+		<s:fill>
+			<s:LinearGradient x="9.5" y="1.5" scaleX="11" rotation="135">
+				<s:GradientEntry color="#222222" ratio="0" alpha="1"/>
+				<s:GradientEntry color="#cacad9" ratio="1" alpha="1"/>
+			</s:LinearGradient>
+		</s:fill>
+		<s:stroke>
+			<s:SolidColorStroke color="#666666" weight="1" caps="none"/>
+		</s:stroke>
+		<s:filters>
+			<s:BlurFilter blurX="1.5" blurY="1.5" quality="3"/>
+		</s:filters>
+	</s:Path>
+</s:Skin>

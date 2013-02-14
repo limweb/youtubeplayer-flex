@@ -2,13 +2,17 @@
 <s:Skin xmlns:s="library://ns.adobe.com/flex/spark"
 		xmlns:fx="http://ns.adobe.com/mxml/2009"
 		xmlns:d="http://ns.adobe.com/fxg/2008/dt"
-		width="313" height="10">
-	<fx:Metadata>[HostComponent("spark.components.Button")]</fx:Metadata>
+		width="241" height="10">
 	<s:states>
 		<s:State name="up"/>
 		<s:State name="over"/>
 		<s:State name="down"/>
 		<s:State name="disabled"/>
 	</s:states>
-	<s:BitmapImage width="313" source="@Embed('/assets/images/videoplayer02/Shape 4.png')" smooth="true" d:userLabel="Shape 4" x="0" y="0"/>
+<!--	<s:BitmapImage width="313" source="@Embed('/assets/images/videoplayer02/Shape 4.png')" smooth="true" d:userLabel="Shape 4" x="0" y="0"/>-->
+	<s:Rect width="241"  x="0" y="0"  height="10">
+		<s:fill>
+			<s:SolidColor color="0xFFFFFF" />
+		</s:fill>
+	</s:Rect>
 </s:Skin>

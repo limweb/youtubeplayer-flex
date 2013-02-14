@@ -1,6 +1,7 @@
 package de.derhess.video.youtube
 {
 	import flash.system.Security;
+
 	/**
 	 * released under MIT License (X11)
 	 * http://www.opensource.org/licenses/mit-license.php
@@ -17,6 +18,10 @@ package de.derhess.video.youtube
 			super();
 			Security.allowInsecureDomain("*");
 			Security.allowDomain("*");
+			Security.allowDomain('www.youtube.com');  
+			Security.allowDomain('youtube.com');  
+			Security.allowDomain('s.ytimg.com');  
+			Security.allowDomain('i.ytimg.com');  
 		}
 		
 	}

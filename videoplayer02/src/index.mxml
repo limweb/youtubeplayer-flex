@@ -5,6 +5,8 @@
 			   xmlns:local="*"
 			   xmlns:d="http://ns.adobe.com/fxg/2008/dt"
 			   width="100%" height="100%"
+			   minHeight="500"
+			   minWidth="1024"
 			   creationComplete="init()"
 			   >
 	<fx:Declarations>
@@ -12,12 +14,18 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+			
+			
+			
 			import components.btnAppstore;
 			import components.btnFacebook;
 			import components.btnGooglePlay;
+			
+			import mx.controls.Alert;
 			private var timer:Timer;
 			[Bindable] public var isFull:Boolean = false;	
-			[Bindable] public var timerStart:Boolean = false;
+			public var timerStart:Boolean = false;
+			[Bindable] public var vh:Boolean = true;
 			 private var dispState:String;
 			
 			private static const YOUTUBE_EMBED_URL:String = "http://www.youtube.com/v/{0}?version=3&autoplay={1}&fs={2}&rel={3}&enablejsapi=1";
@@ -71,7 +79,6 @@
 					bitmapShe2.visible = true;
 					hgContral.visible = true;
 					btnLinkSawasdee.visible = true;
-					
 					btnBuzzabaTv.visible = true;
 					btnCampuztv0.visible = true;
 					btnPrettyTv.visible = true;
@@ -107,6 +114,7 @@
 			private function timer_timer(evt:TimerEvent):void {
 				if(isFull){
 					vdoplayer.ctrlGroup.visible = false;
+					vh = true;
 				} else {
 					vdoplayer.ctrlGroup.visible = true;
 				}
@@ -282,14 +290,20 @@
 		<mx:Canvas width="100%" height="100%" horizontalScrollPolicy="auto" 
 				   verticalScrollPolicy="auto" id="vsSawasdee"
 			   >
-				<local:ytplayer id="vdoplayer" horizontalCenter="0" verticalCenter="0" />
+				
 			<s:Group left="0" bottom="0" width="100%" height="100%">
-				<s:BitmapImage d:userLabel="she2" left="10" bottom="10" width="158" height="463"
+				
+				<s:BitmapImage id="bitmapShe2" left="0" bottom="0" width="213" height="389" smooth="true"
+							   source="@Embed('assets/she4.png')"/>
+				<s:BitmapImage id="bitmapShe1" right="8" bottom="8" width="154" height="517" smooth="true"
+							   source="@Embed('assets/she3.png')"/>
+				
+				<!--<s:BitmapImage d:userLabel="she2" left="10" bottom="10" width="158" height="463"
 							   smooth="true" id="bitmapShe1"
-							   source="@Embed('/assets/images/webtv/599411_438877132801500_659415999_n.png')"/>
-				<s:BitmapImage id="bitmapShe2" d:userLabel="she1" visible="true" right="10" bottom="10"
+							   source="@Embed('/assets/images/webtv/599411_438877132801500_659415999_n.png')"/>-->
+				<!--<s:BitmapImage id="bitmapShe2" d:userLabel="she1" visible="true" right="35" bottom="10"
 							   width="196" height="462" smooth="true"
-							   source="@Embed('/assets/images/webtv/582190_438362922852921_1472748321_n.png')"/>
+							   source="@Embed('/assets/images/webtv/582190_438362922852921_1472748321_n.png')"/>-->
 				<s:Button id="btnFacebook" bottom="32" buttonMode="true"
 						  click="btnFacebook_clickHandler(event)" horizontalCenter="103"
 						  skinClass="components.btnFacebook"/>
@@ -311,6 +325,7 @@
 				</s:HGroup>
 		
 			</s:Group>
+			
 		</mx:Canvas>
 	</mx:ViewStack>
 	<s:Button bottom="10" horizontalCenter="0" skinClass="components.btnSawasdeetvCopyRightLink" id="btnLinkSawasdee"/>
@@ -349,5 +364,7 @@
 									  skinClass="components.btnFresh"/>
 						</s:HGroup>
 	</s:HGroup>
-	
+	<local:ytplayer id="vdoplayer" horizontalCenter="0" verticalCenter="0" />
+	<!--<s:Button bottom="87" label="Button" horizontalCenter="0" visible="{vh}"/>-->
+	<!--<S:LABEL X="477" Y="121" TEXT="{VH.TOSTRING()}"/>-->
 </s:Application>

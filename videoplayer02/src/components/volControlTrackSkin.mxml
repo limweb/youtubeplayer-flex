@@ -10,5 +10,10 @@
 		<s:State name="down"/>
 		<s:State name="disabled"/>
 	</s:states>
-	<s:BitmapImage source="@Embed('/assets/images/videoplayer02/Shape 14.png')" smooth="true" d:userLabel="Shape 14" x="0" y="0"/>
+	<!--<s:BitmapImage source="@Embed('/assets/images/videoplayer02/Shape 14.png')" smooth="true" d:userLabel="Shape 14" x="0" y="0"/>-->
+	<s:Rect left="0" right="0" top="0" bottom="0">
+		<s:fill>
+			<s:SolidColor color="0xdddddd" />
+		</s:fill>
+	</s:Rect>
 </s:Skin>

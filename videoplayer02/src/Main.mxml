@@ -20,6 +20,7 @@
 			
 			[Bindable] public var isFull:Boolean = false;	
 			[Bindable] public var timerStart:Boolean = false;
+			[Bindable] public var vh:Boolean = true;
 			protected function init():void
 			{
 				dispState = systemManager.stage.displayState;
@@ -98,4 +99,5 @@
 	</fx:Script>
 	<ns1:ytplayer id="yt" horizontalCenter="0" verticalCenter="-2">
 	</ns1:ytplayer>
+	<s:Button bottom="106" label="Button" horizontalCenter="0" visible="{vh}"/>
 </s:Application>
