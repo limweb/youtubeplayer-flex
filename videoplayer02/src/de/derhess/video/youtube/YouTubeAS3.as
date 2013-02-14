@@ -2,8 +2,11 @@ package de.derhess.video.youtube
 {
 	import flash.display.Loader;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	import flash.net.URLRequest;
+	import flash.system.Security;
 	
+	import mx.controls.Alert;
 	import mx.core.UIComponent;
 	
     //--------------------------------------
@@ -39,6 +42,7 @@ package de.derhess.video.youtube
         private var loader:Loader;
 		private var player:Object;
 		private var isPlayerLoaded:Boolean = false;
+		private var play:Boolean = true;
         //--------------------------------------------------------------------------
         //
         //  Initialization
@@ -46,7 +50,12 @@ package de.derhess.video.youtube
         //--------------------------------------------------------------------------
         public function YouTubeAS3()
         {
-        	
+			Security.allowInsecureDomain("*");
+			Security.allowDomain("*");
+			Security.allowDomain('www.youtube.com');  
+			Security.allowDomain('youtube.com');  
+			Security.allowDomain('s.ytimg.com');  
+			Security.allowDomain('i.ytimg.com');
         }
         
         override protected function createChildren():void 
@@ -54,7 +63,7 @@ package de.derhess.video.youtube
         	super.createChildren();
         	loader = new Loader();
         	loader.contentLoaderInfo.addEventListener(Event.INIT, handleLoaderInit);
-			loader.load(new URLRequest("http://www.youtube.com/apiplayer?version=3"));
+			loader.load(new URLRequest("http://www.youtube.com/apiplayer?video_id=L3Ez9PHXJic&version=3&fs=1&control=1"));
         }
         //--------------------------------------------------------------------------
         //
@@ -338,6 +347,15 @@ package de.derhess.video.youtube
 		    player.addEventListener("onError", handlePlayerError);
 		    player.addEventListener("onStateChange", handlePlayerStateChange);
 		    player.addEventListener("onPlaybackQualityChange", handleVideoPlaybackQualityChange);
+			player.addEventListener(MouseEvent.CLICK,function():void {
+				if(play){
+					play  =  false;
+					playVideo();
+				} else {
+					play = true;
+					pauseVideo();
+				}
+			});
 		    
 		}
 

@@ -365,6 +365,6 @@
 						</s:HGroup>
 	</s:HGroup>
 	<local:ytplayer id="vdoplayer" horizontalCenter="0" verticalCenter="0" />
-	<!--<s:Button bottom="87" label="Button" horizontalCenter="0" visible="{vh}"/>-->
-	<!--<S:LABEL X="477" Y="121" TEXT="{VH.TOSTRING()}"/>-->
+	<!--<s:Button bottom="214" label="Button" horizontalCenter="0" visible="{vh}"/>-->
+<!--	<S:LABEL X="477" Y="121" TEXT="{VH.TOSTRING()}"/>-->
 </s:Application>

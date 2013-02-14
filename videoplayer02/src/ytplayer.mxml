@@ -5,7 +5,7 @@
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
 		 width="640" height="359" 
 		 creationComplete="init()"
-		 mouseMove="group1_mouseMoveHandler(event)" xmlns:components="components.*"
+		 xmlns:components="components.*"
 		 >
 	<s:states>
 		<s:State name="State1"/>
@@ -16,6 +16,7 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+//		 mouseMove="group1_mouseMoveHandler(event)" 
 			import de.derhess.video.youtube.YouTubeError;
 			import de.derhess.video.youtube.YouTubeEvent;
 			import de.derhess.video.youtube.YouTubePlayingState;
@@ -67,6 +68,7 @@
 						btnPlayStop.selected = true;
 						this.addEventListener(Event.ENTER_FRAME,handlePlayingTime);
 						this.addEventListener(MouseEvent.MOUSE_MOVE,youTubePlayer_mouseMoveHandler);
+						this.addEventListener(MouseEvent.CLICK,youTubePlayer_clickHandler);
 						break;
 					case YouTubePlayingState.PAUSE:
 						message = "Video pause is active";
@@ -163,22 +165,23 @@
 				vdoCtrl.maximum = youTubePlayer.getDuration();
 				if(!vdostop){ vdoCtrl.value = youTubePlayer.getCurrentTime(); }
 				loadbar = youTubePlayer.getVideoBytesLoaded()/youTubePlayer.getVideoBytesTotal()*100 * 2.41;
-				txtloader0.text = String(youTubePlayer.getVideoBytesLoaded()/youTubePlayer.getVideoBytesTotal()*100 * vdoCtrl.maximum /100);
-				txtloader1.text = String( youTubePlayer.getVideoBytesLoaded());
-				txtloader2.text = String(youTubePlayer.getVideoBytesTotal());
+//				txtloader0.text = String(youTubePlayer.getVideoBytesLoaded()/youTubePlayer.getVideoBytesTotal()*100 * vdoCtrl.maximum /100);
+//				txtloader1.text = String( youTubePlayer.getVideoBytesLoaded());
+//				txtloader2.text = String(youTubePlayer.getVideoBytesTotal());
 //				trace(loadbar);
 			}
 			
 
 			protected function youTubePlayer_clickHandler(event:MouseEvent):void
 			{
-				if(youTubePlayer.playerState == YouTubePlayingState.PLAYING){
-					Logger.debug('pause Video');
-					youTubePlayer.pauseVideo();
-				} else {
-					youTubePlayer.playVideo();
-					Logger.debug('Play Video');
-				}
+//				Logger.debug('youtube click');
+//				if(youTubePlayer.playerState == YouTubePlayingState.PLAYING){
+//					Logger.debug('pause Video');
+//					youTubePlayer.pauseVideo();
+//				} else {
+//					youTubePlayer.playVideo();
+//					Logger.debug('Play Video');
+//				}
 				
 			}
 			
@@ -269,7 +272,6 @@
 						 youtubeVideoQuality="{handleVideoQuality(event);}"
 						 youtubeError="{handleYouTubeError(event);}"
 						 volume="{volctrl.value}"
-						 click="youTubePlayer_clickHandler(event)"
 						 />
 	<s:Group bottom="10" horizontalCenter="0" id="ctrlGroup">
 		<s:BitmapImage source="@Embed('/assets/images/videoplayer02/shape.png')" smooth="true" x="0" y="0" alpha="0.6"/>
@@ -293,8 +295,8 @@
 						skinClass="components.btnPlayPause"/>
 	</s:Group>
 	
-	<mx:Text x="528" y="10"  id="txtloader1" visible="false"/>
-	<mx:Text x="528" y="53"  id="txtloader0" visible="false"/>
-	<mx:Text x="588" y="10"  id="txtloader2" visible="false"/>
+<!--	<mx:Text x="528" y="10"  id="txtloader1" visible="true"/>
+	<mx:Text x="528" y="53"  id="txtloader0" visible="true"/>
+	<mx:Text x="588" y="10"  id="txtloader2" visible="true"/>-->
 
 </s:Group>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" 
+			   minWidth="955" minHeight="600" xmlns:local="*"
+			   click="group1_clickHandler(event)"
+			   >
+	<s:layout>
+		<s:BasicLayout/>
+	</s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+			private var play:Boolean = true;
+			protected function group1_clickHandler(event:MouseEvent):void
+			{
+				vdoplayer.visible = true;
+				if(play){
+					vdoplayer.youTubePlayer.playVideo();
+					play = false;
+				} else {
+					vdoplayer.youTubePlayer.pauseVideo();
+					play = true;
+				}
+				
+			}
+			
+			
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<mx:Canvas width="641" height="368" backgroundColor="0xFF0000" 
+			   horizontalCenter="0" verticalCenter="0">
+		<local:ytplayer horizontalCenter="0" verticalCenter="0" id="vdoplayer" >
+		</local:ytplayer>
+	</mx:Canvas>
+</s:Application> 
