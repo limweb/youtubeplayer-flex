@@ -22,17 +22,18 @@
 			import components.btnGooglePlay;
 			
 			import mx.controls.Alert;
-			private var timer:Timer;
+			public var timer:Timer;
 			[Bindable] public var isFull:Boolean = false;	
-			public var timerStart:Boolean = false;
-			[Bindable] public var vh:Boolean = true;
-			 private var dispState:String;
 			
-			private static const YOUTUBE_EMBED_URL:String = "http://www.youtube.com/v/{0}?version=3&autoplay={1}&fs={2}&rel={3}&enablejsapi=1";
+			public var dispState:String;
 			
-			private static const YOUTUBE_EXTERNAL_URL:String = "http://www.youtube.com/watch?v=";
+//			private static const YOUTUBE_EMBED_URL:String = "http://www.youtube.com/v/{0}?version=3&autoplay={1}&fs={2}&rel={3}&enablejsapi=1";
+//			
+//			private static const YOUTUBE_EXTERNAL_URL:String = "http://www.youtube.com/watch?v=";
 			
 			private var videoIds:Array = ["L3Ez9PHXJic","DoQeC9wd97c", "dWOz8oQtFAo","WKNRvBfiUOg"];
+			
+			[Bindable] public var pay:Boolean = false;
 			
 			private function play(dx:int):void {
 				vdoplayer.pay(videoIds[dx]);
@@ -42,6 +43,7 @@
 			{
 				dispState = systemManager.stage.displayState;
 				systemManager.stage.addEventListener(FullScreenEvent.FULL_SCREEN,handleFullScreenChange);
+				timeerStar();
 			}
 			
 			protected function handleFullScreenChange(e:FullScreenEvent):void
@@ -65,9 +67,8 @@
 					btnGoogleplay.visible = false;
 					btnFacebook.visible = false;
 					hgLogoCtrl.visible = false;
-					
 					isFull = true;
-					timeerStar();
+//					timeerStar();
 				} else {
 					vdoplayer.width = 641;
 					vdoplayer.height = 359;
@@ -75,6 +76,7 @@
 					vdoplayer.youTubePlayer.height = 359;
 					dispState = StageDisplayState.NORMAL;
 					isFull = false;
+//					timer.stop();
 					bitmapShe1.visible = true;
 					bitmapShe2.visible = true;
 					hgContral.visible = true;
@@ -108,40 +110,31 @@
 				timer = new Timer(5000);
 				timer.addEventListener(TimerEvent.TIMER, timer_timer);
 				timer.start();
-				timerStart = true;
 			}
 			
 			private function timer_timer(evt:TimerEvent):void {
-				if(isFull){
+				
+				if(pay){
 					vdoplayer.ctrlGroup.visible = false;
-					vh = true;
-				} else {
-					vdoplayer.ctrlGroup.visible = true;
 				}
-				timer.stop();
-				timerStart = false;
-				//				var tmr:Timer = evt.currentTarget as Timer;
-				//				var obj:Object = new Object();
-				//				obj.currentCount = tmr.currentCount;
-				//				obj.delay = tmr.delay;
-				//				obj.repeatCount = tmr.repeatCount;
-				//				obj.running = tmr.running;
-				//				arrColl.addItemAt(obj, 0);
+//				if(isFull){
+//				} else {
+//					vdoplayer.ctrlGroup.visible = true;
+//					timer.stop();
+//				}
 			}
 			
 			protected function btnSawasdee_clickHandler(event:MouseEvent):void
 			{
 				vsTopLogo.selectedChild = vsSawasdee0;
-//				vdolist.visible = false;
-//				bitmapShe2.visible = false;
+				vdoplayer.ctrlGroup.visible = true;
 				bitmapShe1.visible = true;
 				play(0);
 			}
 			protected function btnBuzzabaTv_clickHandler(event:MouseEvent):void
 			{
 				vsTopLogo.selectedChild = vsBuzzabatv;
-//				vdolist.visible = false;
-//				bitmapShe2.visible = false;
+				vdoplayer.ctrlGroup.visible = true;
 				bitmapShe1.visible = true;
 				play(1);
 			}
@@ -150,8 +143,7 @@
 			protected function btnPrettyTv_clickHandler(event:MouseEvent):void
 			{
 				vsTopLogo.selectedChild = vsPrettyTv;
-//				vdolist.visible = false;
-//				bitmapShe2.visible = false;
+				vdoplayer.ctrlGroup.visible = true;
 				bitmapShe1.visible = true;
 				play(3);
 			}
@@ -159,8 +151,7 @@
 			protected function btnCampuztv0_clickHandler(event:MouseEvent):void
 			{
 				vsTopLogo.selectedChild = vsCampuztv;
-//				vdolist.visible = false;
-//				bitmapShe2.visible = false;
+				vdoplayer.ctrlGroup.visible = true;
 				bitmapShe1.visible = true;
 				play(2);
 				
@@ -365,6 +356,4 @@
 						</s:HGroup>
 	</s:HGroup>
 	<local:ytplayer id="vdoplayer" horizontalCenter="0" verticalCenter="0" />
-	<!--<s:Button bottom="214" label="Button" horizontalCenter="0" visible="{vh}"/>-->
-<!--	<S:LABEL X="477" Y="121" TEXT="{VH.TOSTRING()}"/>-->
 </s:Application>

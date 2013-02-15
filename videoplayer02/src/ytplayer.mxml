@@ -6,6 +6,7 @@
 		 width="640" height="359" 
 		 creationComplete="init()"
 		 xmlns:components="components.*"
+		 mouseOver="group1_mouseOverHandler(event)"
 		 >
 	<s:states>
 		<s:State name="State1"/>
@@ -16,7 +17,6 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
-//		 mouseMove="group1_mouseMoveHandler(event)" 
 			import de.derhess.video.youtube.YouTubeError;
 			import de.derhess.video.youtube.YouTubeEvent;
 			import de.derhess.video.youtube.YouTubePlayingState;
@@ -50,7 +50,6 @@
 			}
 			
 			
-			
 			private function handlePlayingState(event:YouTubeEvent):void
 			{
 				var message:String = "";
@@ -64,11 +63,8 @@
 						break;
 					case YouTubePlayingState.PLAYING:
 						message = "Video is playing";
-//						youTubePlayer.playVideo();
 						btnPlayStop.selected = true;
 						this.addEventListener(Event.ENTER_FRAME,handlePlayingTime);
-						this.addEventListener(MouseEvent.MOUSE_MOVE,youTubePlayer_mouseMoveHandler);
-						this.addEventListener(MouseEvent.CLICK,youTubePlayer_clickHandler);
 						break;
 					case YouTubePlayingState.PAUSE:
 						message = "Video pause is active";
@@ -81,7 +77,8 @@
 					case YouTubePlayingState.VIDEO_ENDED:
 						message = "Video is finished";
 						youTubePlayer.visible = false;
-						vdoCtrl.visible = true;
+						ctrlGroup.visible = true;
+						FlexGlobals.topLevelApplication.toggleFullScreen();
 						break;
 					
 					default:
@@ -160,29 +157,10 @@
 			
 			private function handlePlayingTime(e:Event):void
 			{
-//				Logger.debug('start HandlePlaying Time');
 				txtTotalTime.text = numfrm0.format(youTubePlayer.getCurrentTime()) + " / " + numfrm0.format( youTubePlayer.getDuration());
 				vdoCtrl.maximum = youTubePlayer.getDuration();
 				if(!vdostop){ vdoCtrl.value = youTubePlayer.getCurrentTime(); }
 				loadbar = youTubePlayer.getVideoBytesLoaded()/youTubePlayer.getVideoBytesTotal()*100 * 2.41;
-//				txtloader0.text = String(youTubePlayer.getVideoBytesLoaded()/youTubePlayer.getVideoBytesTotal()*100 * vdoCtrl.maximum /100);
-//				txtloader1.text = String( youTubePlayer.getVideoBytesLoaded());
-//				txtloader2.text = String(youTubePlayer.getVideoBytesTotal());
-//				trace(loadbar);
-			}
-			
-
-			protected function youTubePlayer_clickHandler(event:MouseEvent):void
-			{
-//				Logger.debug('youtube click');
-//				if(youTubePlayer.playerState == YouTubePlayingState.PLAYING){
-//					Logger.debug('pause Video');
-//					youTubePlayer.pauseVideo();
-//				} else {
-//					youTubePlayer.playVideo();
-//					Logger.debug('Play Video');
-//				}
-				
 			}
 			
 			protected function vdoCtrl_changeHandler(event:Event):void
@@ -193,35 +171,6 @@
 				vdostop = false;
 				
 			}
-			
-			protected function youTubePlayer_mouseMoveHandler(event:MouseEvent):void
-			{
-//				Logger.debug('mouseMove timestart = '+ FlexGlobals.topLevelApplication.timerStart.toString());
-//				if(FlexGlobals.topLevelApplication.timerStart){
-//					ctrlGroup.visible = true;
-//				} else {
-//					FlexGlobals.topLevelApplication.timeerStar();
-//					ctrlGroup.visible = true;
-//				}
-//				Logger.debug('yt mouse move');
-			}
-			
-			protected function group1_mouseMoveHandler(event:MouseEvent):void
-			{
-				Logger.debug(' Group Mouse Move');
-				if(FlexGlobals.topLevelApplication.timerStart){
-					Logger.debug('tiemer start true');
-					ctrlGroup.visible = true;
-//					FlexGlobals.topLevelApplication.vh = true;
-				} else {
-					Logger.debug('timer start false');
-					ctrlGroup.visible = true;
-					FlexGlobals.topLevelApplication.timeerStar();
-//					FlexGlobals.topLevelApplication.vh = false;
-				}
-					ctrlGroup.visible = true;
-			}
-			
 			
 			protected function togVol_changeHandler(event:Event):void
 			{
@@ -237,17 +186,33 @@
 			protected function volctrl_changeHandler(event:Event):void
 			{
 				volNum = volctrl.value;
-				
 			}
 			
 			protected function togHD_clickHandler(event:MouseEvent):void
 			{
-//				playbackQuality
 				if(togHD.selected){
 					youTubePlayer.playbackQuality  = YouTubeVideoQuality.HD720;
 				} else {
 					youTubePlayer.playbackQuality  = YouTubeVideoQuality.DEFAULT;
 				}
+				
+			}
+			
+			private var mv:int = 0;
+			public  function handleMouseMove(event:MouseEvent):void {
+				ctrlGroup.visible = true;
+				if(FlexGlobals.topLevelApplication.timer != null){
+					if( FlexGlobals.topLevelApplication.timer.running) {
+						FlexGlobals.topLevelApplication.timer.repeatCount = 5000;
+					} else  {
+						FlexGlobals.topLevelApplication.timeerStar();
+					}
+				}
+			}
+			
+			protected function group1_mouseOverHandler(event:MouseEvent):void
+			{
+				youTubePlayer.visible = true;
 				
 			}
 			
@@ -271,10 +236,14 @@
 						 youtubeStatus="{handlePlayingState(event);}"
 						 youtubeVideoQuality="{handleVideoQuality(event);}"
 						 youtubeError="{handleYouTubeError(event);}"
+						 mouseMove="{handleMouseMove(event)}"
 						 volume="{volctrl.value}"
 						 />
 	<s:Group bottom="10" horizontalCenter="0" id="ctrlGroup">
-		<s:BitmapImage source="@Embed('/assets/images/videoplayer02/shape.png')" smooth="true" x="0" y="0" alpha="0.6"/>
+		<s:BitmapImage x="0" alpha="0.6" smooth="true"
+					   source="@Embed('/assets/images/videoplayer02/shape.png')"
+					   y.FULL="0"
+					   y.State1="0"/>
 		<mx:Text id="txtTotalTime" x="297" y="10" color="#ffffff" fontFamily="Arial" fontSize="11"
 				 text="0.00"
 				 x.State1="297" y.State1="8"/>
@@ -283,7 +252,6 @@
 				   change="vdoCtrl_changeHandler(event)"/>
 		<s:Button x="543.95" y="9" buttonMode="true" click="FlexGlobals.topLevelApplication.toggleFullScreen()"
 				  skinClass="components.btnFull1" />
-<!--		<s:BitmapImage source="@Embed('/assets/images/videoplayer02/Shape 11.png')" smooth="true"  x="433" y="9"/>-->
 		<s:ToggleButton selected="true" skinClass="components.togVolume"  x="435" y="10" id="togVol" change="togVol_changeHandler(event)" />
 		<s:ToggleButton id="togHD"  skinClass="components.togHD" x="398" y="12" click="togHD_clickHandler(event)"/>
 		<s:BitmapImage source="@Embed('/assets/images/videoplayer02/Shape 14_s Drop Shadow.png')" smooth="true"  x="462" y="14"/>
@@ -294,9 +262,4 @@
 						click="playStop(event)" id="btnPlayStop"
 						skinClass="components.btnPlayPause"/>
 	</s:Group>
-	
-<!--	<mx:Text x="528" y="10"  id="txtloader1" visible="true"/>
-	<mx:Text x="528" y="53"  id="txtloader0" visible="true"/>
-	<mx:Text x="588" y="10"  id="txtloader2" visible="true"/>-->
-
 </s:Group>

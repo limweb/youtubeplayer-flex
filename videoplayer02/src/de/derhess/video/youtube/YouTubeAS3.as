@@ -7,6 +7,7 @@ package de.derhess.video.youtube
 	import flash.system.Security;
 	
 	import mx.controls.Alert;
+	import mx.core.FlexGlobals;
 	import mx.core.UIComponent;
 	
     //--------------------------------------
@@ -43,6 +44,7 @@ package de.derhess.video.youtube
 		private var player:Object;
 		private var isPlayerLoaded:Boolean = false;
 		private var play:Boolean = true;
+		
         //--------------------------------------------------------------------------
         //
         //  Initialization
@@ -280,20 +282,28 @@ package de.derhess.video.youtube
 		//----------------------------------
 		public function playVideo():void
 		{
-			if(isPlayerLoaded)
+			if(isPlayerLoaded) {
 				player.playVideo();
+				FlexGlobals.topLevelApplication.pay = true;
+				
+			}
 		}
 		
 		public function pauseVideo():void
 		{
-			if(isPlayerLoaded)
+			if(isPlayerLoaded) {
 				player.pauseVideo();
+				FlexGlobals.topLevelApplication.pay = false;				
+			}
 		}
 		
 		public function stopVideo():void
 		{
-			if(isPlayerLoaded)
+			if(isPlayerLoaded) {
+				FlexGlobals.topLevelApplication.pay = false;
 				player.stopVideo();
+				Alert.show('stop');
+			}
 		}
 		
 		public function seekTo(seconds:Number, allowSeekAhead:Boolean = true):void
@@ -325,7 +335,7 @@ package de.derhess.video.youtube
 			    player.removeEventListener("onError", handlePlayerError);
 			    player.removeEventListener("onStateChange", handlePlayerStateChange);
 			    player.removeEventListener("onPlaybackQualityChange", handleVideoPlaybackQualityChange);
-		    
+		    	player.removeEventListener(MouseEvent.MOUSE_MOVE,handleMouseMove);
 				player.destroy();
 				
 				loader.unload();
@@ -347,18 +357,23 @@ package de.derhess.video.youtube
 		    player.addEventListener("onError", handlePlayerError);
 		    player.addEventListener("onStateChange", handlePlayerStateChange);
 		    player.addEventListener("onPlaybackQualityChange", handleVideoPlaybackQualityChange);
-			player.addEventListener(MouseEvent.CLICK,function():void {
-				if(play){
-					play  =  false;
-					playVideo();
-				} else {
-					play = true;
-					pauseVideo();
-				}
+			player.addEventListener(MouseEvent.MOUSE_MOVE,handleMouseMove);
+			player.addEventListener(MouseEvent.CLICK,function(e:MouseEvent):void {
+					if(play){
+						play  =  false;
+						playVideo();
+					} else {
+						play = true;
+						pauseVideo();
+					}
 			});
 		    
+			
 		}
 
+		private function handleMouseMove(event:MouseEvent):void {
+			dispatchEvent(event);
+		}
 		//--------------------------------------------------------------------------
         //
         //  Broadcasting
