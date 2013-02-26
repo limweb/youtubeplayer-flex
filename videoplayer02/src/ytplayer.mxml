@@ -45,7 +45,15 @@
 			public function pay(vdo:String = null ):void {
 				if(vdo != null ){
 					Logger.debug('Play Vdo is:'+ vdo );
-					youTubePlayer.cueVideoById(vdo,0,YouTubeVideoQuality.DEFAULT);
+					
+					if(togHD.selected){
+						youTubePlayer.playbackQuality  = YouTubeVideoQuality.HD720;
+						youTubePlayer.cueVideoById(vdo,0,YouTubeVideoQuality.HD720);
+					} else {
+						youTubePlayer.playbackQuality  = YouTubeVideoQuality.DEFAULT;
+						youTubePlayer.cueVideoById(vdo,0,YouTubeVideoQuality.DEFAULT);
+					}
+						
 				}
 			}
 			
@@ -73,12 +81,24 @@
 					case YouTubePlayingState.VIDEO_CUED:
 						message = "Video is cued - Playing new Video?!"
 						youTubePlayer.visible = true;
+						youTubePlayer.playVideo(); //สั่งให้ autoplay 
 						break;
 					case YouTubePlayingState.VIDEO_ENDED:
 						message = "Video is finished";
+						if(FlexGlobals.topLevelApplication.chkAdPlay) {
+						 	FlexGlobals.topLevelApplication.playAd(FlexGlobals.topLevelApplication.intAdx);
+							FlexGlobals.topLevelApplication.intAdx +=1;
+							if(FlexGlobals.topLevelApplication.intAdx == FlexGlobals.topLevelApplication.intAdmax){
+								FlexGlobals.topLevelApplication.intAdx = 0;
+							}
+						youTubePlayer.visible = true;
+						ctrlGroup.visible = true;
+						FlexGlobals.topLevelApplication.toggleFullScreen();
+						} else {
 						youTubePlayer.visible = false;
 						ctrlGroup.visible = true;
 						FlexGlobals.topLevelApplication.toggleFullScreen();
+						}
 						break;
 					
 					default:
@@ -210,6 +230,15 @@
 				}
 			}
 			
+			
+//			public function HandleDoubelClick(e:MouseEvent):void {
+//				
+//				FlexGlobals.topLevelApplication.toggleFullScreen();
+//										 doubleClickEnabled="true"
+//			doubleClick="{HandleDoubelClick(event)}"
+//			}
+			
+			
 			protected function group1_mouseOverHandler(event:MouseEvent):void
 			{
 				youTubePlayer.visible = true;
@@ -237,6 +266,7 @@
 						 youtubeVideoQuality="{handleVideoQuality(event);}"
 						 youtubeError="{handleYouTubeError(event);}"
 						 mouseMove="{handleMouseMove(event)}"
+
 						 volume="{volctrl.value}"
 						 />
 	<s:Group bottom="10" horizontalCenter="0" id="ctrlGroup">

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		width="{whSize}" height="{whSize}">
+	<fx:Metadata>[HostComponent("spark.components.RadioButton")]</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			[Bindable] public var whSize:int = 12;
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="up"/>
+		<s:State name="over"/>
+		<s:State name="down"/>
+		<s:State name="disabled"/>
+		<s:State name="upAndSelected"/>
+		<s:State name="overAndSelected"/>
+		<s:State name="downAndSelected"/>
+		<s:State name="disabledAndSelected"/>
+	</s:states>
+	<s:Ellipse x="0.5" y="0.5" width="{whSize-1}" height="{whSize-1}">
+		<s:stroke>
+			<s:LinearGradientStroke caps="none" joints="miter" miterLimit="4" rotation="90"
+									weight="1">
+				<s:GradientEntry alpha="1" color="#5C5C5C" ratio="0"/>
+				<s:GradientEntry alpha="1" color="#000000" ratio="1"/>
+			</s:LinearGradientStroke>
+		</s:stroke>
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry alpha="1" color="#FFFFFF" ratio="0"/>
+				<s:GradientEntry alpha="1.0" color="#002FD1" ratio="1"
+								 color.disabled="#CCCCCC"
+								 color.disabledAndSelected="#CCCCCC"
+								 color.down="#00DE00"
+								 color.downAndSelected="#00A700"
+								 color.over="#00FF00"
+								 color.overAndSelected="#00A700"
+								 color.upAndSelected="#00A700"/>
+			</s:LinearGradient>
+		</s:fill>
+		<s:filters>
+			<s:GlowFilter includeIn="over" alpha="1.0" blurX="6.0" blurY="6.0" color="#EE0202"
+						  inner="false" knockout="false" quality="2" strength="1"/>
+			<s:GlowFilter includeIn="down" alpha="1.0" blurX="6.0" blurY="6.0" color="#EE0202"
+						  inner="false" knockout="false" quality="2" strength="1"/>
+			<s:GlowFilter includeIn="upAndSelected" alpha="1.0" blurX="6.0" blurY="6.0" color="#EE0202"
+						  inner="false" knockout="false" quality="2" strength="1"/>
+		</s:filters>
+	</s:Ellipse>
+</s:Skin>

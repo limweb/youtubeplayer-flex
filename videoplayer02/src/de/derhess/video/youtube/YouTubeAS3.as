@@ -65,7 +65,7 @@ package de.derhess.video.youtube
         	super.createChildren();
         	loader = new Loader();
         	loader.contentLoaderInfo.addEventListener(Event.INIT, handleLoaderInit);
-			loader.load(new URLRequest("http://www.youtube.com/apiplayer?video_id=L3Ez9PHXJic&version=3&fs=1&control=1"));
+			loader.load(new URLRequest("http://www.youtube.com/apiplayer?version=3&autoplay=1&loop=1"));
         }
         //--------------------------------------------------------------------------
         //
@@ -367,16 +367,20 @@ package de.derhess.video.youtube
 						pauseVideo();
 					}
 			});
-		    
+		    player.addEventListener(MouseEvent.DOUBLE_CLICK,HandleDoubelClick);
 			
 		}
 
 		private function handleMouseMove(event:MouseEvent):void {
 			dispatchEvent(event);
 		}
+		
+		private function HandleDoubelClick(event:MouseEvent):void  {
+			dispatchEvent(event);
+		}
 		//--------------------------------------------------------------------------
         //
-        //  Broadcasting
+        //  Broadcastin
         //
         //--------------------------------------------------------------------------
 		private function handlePlayerReady(event:Event):void 

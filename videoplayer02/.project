@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>videoplayer02</name>
-	<comment/>
+	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -15,5 +15,16 @@
 		<nature>com.adobe.flexbuilder.project.flexnature</nature>
 		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>bin-debug</name>
+			<type>2</type>
+			<location>C:/easyphp/EasyPHP-12.1/www/videoplayer02-debug</location>
+		</link>
+		<link>
+			<name>services/AdvideoService.php</name>
+			<type>1</type>
+			<location>C:/easyphp/EasyPHP-12.1/www/videoplayer02-debug/services/AdvideoService.php</location>
+		</link>
+	</linkedResources>
 </projectDescription>
-

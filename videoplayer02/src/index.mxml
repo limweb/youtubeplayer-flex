@@ -2,38 +2,47 @@
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
 			   xmlns:s="library://ns.adobe.com/flex/spark"
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
-			   xmlns:local="*"
 			   xmlns:d="http://ns.adobe.com/fxg/2008/dt"
-			   width="100%" height="100%"
-			   minHeight="500"
-			   minWidth="1024"
-			   creationComplete="init()"
-			   >
+			   xmlns:local="*"
+			   xmlns:advideoservice="services.advideoservice.*"
+			   width="100%" height="100%" minWidth="1024" minHeight="500"
+			   creationComplete="init()">
 	<fx:Declarations>
+		<s:CallResponder id="getAllAdvideoResult" result="getAllAdvideoResult_resultHandler(event)"/>
+		<advideoservice:AdvideoService id="advideoService"
+									   fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)"
+									   showBusyCursor="true"/>
+		<s:CallResponder id="updateAdHitResult"/>
 		<!-- Place non-v-isual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
-			
-			
-			
 			import components.btnAppstore;
 			import components.btnFacebook;
 			import components.btnGooglePlay;
+			import components.togAd;
 			
+			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.rpc.events.ResultEvent;
+
+			
 			public var timer:Timer;
-			[Bindable] public var isFull:Boolean = false;	
-			
+			[Bindable] public var isFull:Boolean = false;
+			[Bindable] public var chkAdPlay:Boolean = false;
+			[Bindable] public var adVideoList:ArrayCollection = new ArrayCollection();
+			[Bindable] public var pay:Boolean = false;
+			public var intAdx:int = 0;
+			public var intAdmax:int = 0;
 			public var dispState:String;
-			
-//			private static const YOUTUBE_EMBED_URL:String = "http://www.youtube.com/v/{0}?version=3&autoplay={1}&fs={2}&rel={3}&enablejsapi=1";
-//			
-//			private static const YOUTUBE_EXTERNAL_URL:String = "http://www.youtube.com/watch?v=";
-			
 			private var videoIds:Array = ["L3Ez9PHXJic","DoQeC9wd97c", "dWOz8oQtFAo","WKNRvBfiUOg"];
 			
-			[Bindable] public var pay:Boolean = false;
+			
+			
+			
+			
+			
 			
 			private function play(dx:int):void {
 				vdoplayer.pay(videoIds[dx]);
@@ -43,7 +52,10 @@
 			{
 				dispState = systemManager.stage.displayState;
 				systemManager.stage.addEventListener(FullScreenEvent.FULL_SCREEN,handleFullScreenChange);
-				timeerStar();
+				timeerStar(); // forVideo
+//				startTimer();  //forAd
+				getAllAdvideo();
+				
 			}
 			
 			protected function handleFullScreenChange(e:FullScreenEvent):void
@@ -129,6 +141,7 @@
 				vsTopLogo.selectedChild = vsSawasdee0;
 				vdoplayer.ctrlGroup.visible = true;
 				bitmapShe1.visible = true;
+				chkAdPlay = false;
 				play(0);
 			}
 			protected function btnBuzzabaTv_clickHandler(event:MouseEvent):void
@@ -136,6 +149,7 @@
 				vsTopLogo.selectedChild = vsBuzzabatv;
 				vdoplayer.ctrlGroup.visible = true;
 				bitmapShe1.visible = true;
+				chkAdPlay = false;
 				play(1);
 			}
 			
@@ -145,6 +159,7 @@
 				vsTopLogo.selectedChild = vsPrettyTv;
 				vdoplayer.ctrlGroup.visible = true;
 				bitmapShe1.visible = true;
+				chkAdPlay = false;
 				play(3);
 			}
 			
@@ -153,6 +168,7 @@
 				vsTopLogo.selectedChild = vsCampuztv;
 				vdoplayer.ctrlGroup.visible = true;
 				bitmapShe1.visible = true;
+				chkAdPlay = false;
 				play(2);
 				
 			}
@@ -171,13 +187,62 @@
 				navigateToURL( new URLRequest( encodeURI("http://www.facebook.com/buzzabatv")), "_blank");
 			}
 			
+			protected function getAllAdvideo():void
+			{
+				getAllAdvideoResult.token = advideoService.getAllAdvideo();
+			}
+			
+			protected function getAllAdvideoResult_resultHandler(event:ResultEvent):void
+			{
+				adVideoList = event.result as ArrayCollection;
+				intAdmax = adVideoList.length;
+				var rdo:RadioButton;
+				hbCtrlbar.removeAllElements();
+				for(var i:int = 0;i<adVideoList.length;i++) {
+					rdo = new RadioButton();
+					rdo.setStyle("skinClass", togAd);
+					rdo.toolTip = adVideoList[i].title;
+					rdo.addEventListener(MouseEvent.CLICK,togAdClick );
+					hbCtrlbar.addElement(rdo);
+				}
+				playAd(intAdx);
+				intAdx +=1;
+			}
+			
+			public function playAd(dx:int):void {
+				chkAdPlay = true;
+				vdoplayer.pay(adVideoList[dx].youtubeid);
+				updateAdHit(adVideoList[dx].youtubeid);
+				updateAdctrl(dx);
+			}
+			
+			
+			private function updateAdHit(itemID:String):void
+			{
+				updateAdHitResult.token = advideoService.updateAdHit(itemID);
+			}
+			
+			private function updateAdctrl(idx:int):void { /// 0 - x
+				var rdo:Object = hbCtrlbar.getChildAt(idx) 
+					rdo.selected = true;
+					txtTmCount.text = (idx+1).toString() + " / " + intAdmax.toString();
+			}
+
+			
+			protected function togAdClick(event:MouseEvent):void
+			{
+				var i:int = hbCtrlbar.getChildIndex(event.target as DisplayObject);
+				intAdx = i;
+				playAd(intAdx);
+			}
+			
 		]]>
 	</fx:Script>
 	<s:VGroup  left="10" top="5" gap="2" >
 		<mx:Text text="VISITERS" />
 		
 		<s:Group x="4" y="22">
-			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 70_s Drop Shadow.png')" smooth="true" d:userLabel="Layer 2 copy 70's Drop Shadow" x="0" y="0" blendMode="multiply"/>
+			<s:BitmapImage  source="@Embed('/assets/images/webtv/Layer 2 copy 70_s Drop Shadow.png')" smooth="true" d:userLabel="Layer 2 copy 70's Drop Shadow" x="0" y="0" blendMode="multiply"/>
 			<s:BitmapImage source="@Embed('/assets/images/webtv/Layer 2 copy 70.png')" smooth="true" d:userLabel="Layer 2 copy 70" x="0" y="0"/>
 			<s:BitmapImage source="@Embed('/assets/images/webtv/s_s Drop Shadow.png')" smooth="true" d:userLabel="s's Drop Shadow" x="5" y="4" blendMode="multiply"/>
 			<s:BitmapImage source="@Embed('/assets/images/webtv/s.png')" smooth="true" d:userLabel="s" x="5" y="4"/>
@@ -315,6 +380,15 @@
 							  skinClass="components.btnPrettySMlogo"/>
 				</s:HGroup>
 		
+				<s:HGroup bottom="110" height="25" horizontalCenter="0" verticalAlign="middle" id="hbCtrlbar" gap="3"  includeInLayout="{chkAdPlay}" visible="{chkAdPlay}">
+<!--					<s:RadioButton skinClass="components.togAd" selected="true" click="togAdClick(event)"/>
+					<s:RadioButton skinClass="components.togAd" click="togAdClick(event)" />
+					<s:RadioButton skinClass="components.togAd" click="togAdClick(event)" />
+					<s:RadioButton skinClass="components.togAd" click="togAdClick(event)" />
+					<s:RadioButton skinClass="components.togAd" click="togAdClick(event)" />-->
+				</s:HGroup>
+
+				
 			</s:Group>
 			
 		</mx:Canvas>
@@ -348,12 +422,15 @@
 									</s:HGroup>
 									</mx:HBox>
 							</mx:ViewStack>
-						<s:HGroup d:userLabel="PlayListGroup" gap="0">
+						<s:HGroup d:userLabel="PlayListGroup" y="60" height="60" gap="0"
+								  verticalAlign="top">
 							<s:Button 
 									  skinClass="components.btnLast" id="btnLast"/>
 							<s:Button  id="btnFresh"
 									  skinClass="components.btnFresh"/>
 						</s:HGroup>
 	</s:HGroup>
-	<local:ytplayer id="vdoplayer" horizontalCenter="0" verticalCenter="0" />
+	<local:ytplayer id="vdoplayer" horizontalCenter="0" verticalCenter="-10" />
+	<mx:Text id="txtTmCount" right="50" top="10" text="0"/>
+
 </s:Application>
